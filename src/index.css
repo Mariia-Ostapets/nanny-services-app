@@ -1,17 +1,42 @@
 @import 'node_modules/modern-normalize/modern-normalize.css';
 
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('./fonts/HelveticaNeueCyr-Roman.woff2') format('woff2'),
+    url('./fonts/HelveticaNeueCyr-Roman.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('./fonts/HelveticaNeueCyr-Medium.woff2') format('woff2'),
+    url('./fonts/HelveticaNeueCyr-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('./fonts/HelveticaNeueCyr-Bold.woff2') format('woff2'),
+    url('./fonts/HelveticaNeueCyr-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
   /* Colors */
-  --primary-color-black: #101828;
-  --primary-color-gray: #8d929a;
-  --primary-color-blue: #3470ff;
+  --primary-color-black: #11101c;
+  --primary-color-gray: rgba(17, 16, 28, 0.5);
+  --primary-color-gray-dark: #f3f3f3;
+  --primary-color-gray-light: #fbfbfb;
+  --primary-color-blue: #0957c3;
   --primary-color-white: #ffffff;
 
-  --secondary-color-blue: #0b44cd;
-  --secondary-color-light-gray1: #dadde1;
-  --secondary-color-light-gray2: #f2f4f7;
-  --secondary-color-light-gray3: #f7f7f7;
-  --secondary-color-light-gray4: #f0eeef;
+  --secondary-color-blue: rgba(9, 87, 195, 0.2);
+
+  --accent-color-green: #38cd3e;
+  --accent-color-pink: rgba(240, 63, 59, 0.2);
 
   /* Transition */
   --primary-transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -25,11 +50,13 @@
 }
 
 body {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Helvetica Neue', sans-serif;
   font-size: 16px;
   line-height: 1.25;
-  background-color: var(--primary-color-white);
-  color: var(--primary-color-black);
+  background-color: var(--primary-color-gray-light);
+  color: var(--primary-color-gray);
+  min-width: 320px;
+  min-height: 100vh;
   margin: 0;
 }
 
@@ -45,6 +72,7 @@ p {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 img {
