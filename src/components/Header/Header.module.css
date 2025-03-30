@@ -24,6 +24,17 @@
   padding: 30px 128px;
 }
 
+.logo {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.17;
+  letter-spacing: -0.02em;
+  color: var(--primary-color-gray-light);
+}
+
 .headerNavList {
   display: flex;
+  gap: 40px;
+  letter-spacing: -0.01em;
+  color: var(--primary-color-gray-light);
 }

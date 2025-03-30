@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import css from './Header.module.css';
 import clsx from 'clsx';
 
@@ -11,12 +11,18 @@ export default function Header({ type }) {
         !type && css.headerNannies
       )}
     >
-      <Link to="/">Nanny.Services</Link>
+      <Link className={css.logo} to="/">
+        Nanny.Services
+      </Link>
       <div>
         <nav className={css.headerNavMenu}>
           <ul className={css.headerNavList}>
-            <li>Home</li>
-            <li>Nannies</li>
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="nannies">Nannies</NavLink>
+            </li>
           </ul>
         </nav>
       </div>

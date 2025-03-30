@@ -1,0 +1,54 @@
+.button {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--primary-color-gray-light);
+  outline: transparent;
+  border: transparent;
+  background-color: transparent;
+  border-radius: 30px;
+}
+
+.logInBtn,
+.logOutBtn {
+  border: 1px solid rgba(251, 251, 251, 0.4);
+  padding: 14px 39px;
+  /* max-width: 134px;
+  min-height: 48px; */
+}
+
+.registrationBtn,
+.loadMoreBtn {
+  background-color: var(--primary-color-blue);
+  padding: 14px 40px;
+}
+
+.readMoreBtn {
+  text-decoration-skip-ink: none;
+  color: var(--primary-color-black);
+}
+
+.makeAppointmentBtn {
+  background-color: var(--primary-color-blue);
+  padding: 14px 28px;
+}
+
+.favouritesBtn {
+  width: 26px;
+  height: 26px;
+}
+
+.signUpLogInModalSendBtn {
+  min-width: 100%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background-color: var(--primary-color-blue);
+}
+
+.closeModalBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
