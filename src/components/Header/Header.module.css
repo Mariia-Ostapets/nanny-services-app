@@ -1,10 +1,29 @@
-.pageHeader {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 999;
+  top: 0px;
+  left: 0px;
+  right: 0px;
 }
 
-.headerNavMenu {
-  padding-top: 30px;
-  padding-bottom: 30px;
+.headerHome {
+  position: absolute;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(251, 251, 251, 0.4);
+  max-width: 1376px;
+  padding: 20px 96px;
+}
+
+.headerNannies {
+  position: fixed;
+  background-color: var(--primary-color-blue);
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 30px 128px;
+}
+
+.headerNavList {
+  display: flex;
 }

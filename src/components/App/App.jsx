@@ -16,18 +16,16 @@ const NotFoundPage = lazy(() =>
 
 export default function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/nannies" element={<NanniesPage />} />
-          <Route
-            path="/favourites"
-            element={<PrivateRoute component={<FavouritesPage />} />}
-          />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/nannies" element={<NanniesPage />} />
+        <Route
+          path="/favourites"
+          element={<PrivateRoute component={<FavouritesPage />} />}
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   );
 }

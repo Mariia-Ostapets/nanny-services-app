@@ -1,24 +1,33 @@
 .homePageContainer {
-  max-width: 1367px;
-  padding-left: 96px;
-  padding-right: 96px;
-  background-image: url(../../assets/images/hero.png);
+  position: relative;
+  border-radius: 30px;
+  width: 100%;
+  background-color: #0957c3;
+  background-image: url('../../assets/images/hero.png');
   background-repeat: no-repeat;
-  background-position: right bottom;
+  background-size: 50% 100%;
+  background-position: right center;
+  height: 736px;
 }
 
-@media screen and (min-width: 768px) {
-  .homePageContainer {
-    max-width: 695px;
-    padding-left: 24px;
-    padding-right: 24px;
-  }
+.homePageTitleWrapper {
+  padding-left: 96px;
+  padding-top: 251px;
+  max-width: 517px;
+  color: var(--primary-color-gray-light);
 }
 
-@media screen and (min-width: 1440px) {
-  .homePageContainer {
-    max-width: 1367px;
-    padding-left: 96px;
-    padding-right: 96px;
-  }
+.homePageTitle {
+  font-weight: 500;
+  font-size: 70px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 28px;
+}
+
+.homePageText {
+  font-size: 28px;
+  line-height: 1.07143;
+  letter-spacing: -0.02em;
+  margin-bottom: 64px;
 }
