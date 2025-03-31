@@ -7,8 +7,8 @@ const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const NanniesPage = lazy(() =>
   import('../../pages/NanniesPage/NanniesPage.jsx')
 );
-const FavouritesPage = lazy(() =>
-  import('../../pages/FavouritesPage/FavouritesPage')
+const FavoritesPage = lazy(() =>
+  import('../../pages/FavoritesPage/FavoritesPage.jsx')
 );
 const NotFoundPage = lazy(() =>
   import('../../pages/NotFoundPage/NotFoundPage')
@@ -21,8 +21,8 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/nannies" element={<NanniesPage />} />
         <Route
-          path="/favourites"
-          element={<PrivateRoute component={<FavouritesPage />} />}
+          path="/favorites"
+          element={<PrivateRoute component={<FavoritesPage />} />}
         />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

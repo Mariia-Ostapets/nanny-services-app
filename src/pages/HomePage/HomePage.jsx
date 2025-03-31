@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import css from './HomePage.module.css';
-import Container from '../../components/ui/Container/Container';
 
 export default function HomePage() {
   return (

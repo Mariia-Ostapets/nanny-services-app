@@ -7,12 +7,21 @@
   background-repeat: no-repeat;
   background-size: 50% 100%;
   background-position: right center;
-  height: 736px;
+  /* height: 736px; */
+}
+
+@media screen and (min-device-pixel-ratio: 2),
+  screen and (min-resolution: 192dpi),
+  screen and (min-resolution: 2dppx) {
+  .homePageContainer {
+    background-image: url('../../assets/images/hero@2x.png');
+  }
 }
 
 .homePageTitleWrapper {
   padding-left: 96px;
   padding-top: 251px;
+  padding-bottom: 163px;
   max-width: 600px;
   color: var(--primary-color-gray-light);
 }
@@ -68,6 +77,17 @@
   gap: 16px;
   background-color: var(--primary-color-gray-light);
   border-radius: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .banner {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .homePageContainer {
+    background-size: cover;
+  }
 }
 
 .bannerIconWrapper {
