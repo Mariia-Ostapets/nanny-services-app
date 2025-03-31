@@ -15,7 +15,6 @@ import { authReducer } from './auth/slice';
 const rootReducer = combineReducers({
   auth: authReducer,
   //   nannies: nanniesReducer,
-  //   modal: modalReducer,
 });
 
 const persistConfig = {

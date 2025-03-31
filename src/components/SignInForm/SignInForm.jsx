@@ -1,5 +1,5 @@
 import cs from './SignInForm.module.css';
 
 export default function SignInForm() {
-  return;
+  return <form style={{ width: '60px', height: '180px' }}>SignIn</form>;
 }

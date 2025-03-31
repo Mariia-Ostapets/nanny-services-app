@@ -1,0 +1,42 @@
+.signUpFormTitle {
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--primary-color-black);
+  margin-bottom: 20px;
+}
+
+.signUpFormText {
+  color: var(--primary-color-gray);
+  margin-bottom: 40px;
+}
+
+input {
+  display: block;
+  outline: transparent;
+  background-color: transparent;
+  border: 1px solid rgba(17, 16, 28, 0.1);
+  border-radius: 12px;
+  padding-left: 18px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: 438px;
+  height: 52px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--primary-color-black);
+}
+
+input:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+input:last-of-type {
+  margin-bottom: 40px;
+}
+
+input::placeholder {
+  color: var(--primary-color-black);
+}

@@ -1,6 +1,5 @@
 import Header from '../../Header/Header';
 import Loader from '../Loader/Loader';
-import Modal from '../Modal/Modal';
 import { Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import css from './Layout.module.css';
@@ -30,7 +29,6 @@ export default function Layout() {
             <Outlet />
           </Suspense>
         </main>
-        <Modal className={css.modalOverlay} />
       </div>
     </div>
   );

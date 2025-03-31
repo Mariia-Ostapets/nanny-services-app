@@ -3,7 +3,7 @@ import SignInForm from '../SignInForm/SignInForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
 import Button from '../ui/Button/Button';
 
-export default function AuthMenu() {
+export default function AuthMenu({ openModal }) {
   return (
     <div className={css.authMenuWrapper}>
       <Button
