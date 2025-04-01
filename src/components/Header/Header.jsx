@@ -12,6 +12,7 @@ import ModalForm from '../ui/ModalForm/ModalForm';
 export default function Header({ type }) {
   const [modalContent, setModalContent] = useState(null);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  console.log(isLoggedIn);
 
   const openModal = content => setModalContent(content);
   const closeModal = () => setModalContent(null);

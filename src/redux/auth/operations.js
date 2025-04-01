@@ -40,7 +40,9 @@ export const signIn = createAsyncThunk(
   'auth/signIn',
   async ({ email, password }, { rejectWithValue }) => {
     try {
+      console.log('Trying to sign in user with:', email);
       const { user } = await signInWithEmailAndPassword(auth, email, password);
+      console.log('User logged in:', user);
       const userId = user.uid;
 
       const userRef = ref(db, `users/${userId}`);
@@ -56,6 +58,7 @@ export const signIn = createAsyncThunk(
           favorites: [],
         });
       }
+      console.log('User after login:', { user });
       return {
         uid: userId,
         name: user.displayName,
@@ -63,6 +66,7 @@ export const signIn = createAsyncThunk(
         favorites,
       };
     } catch (error) {
+      console.error('SIGN IN ERROR:', error.message);
       return rejectWithValue(error.message);
     }
   }

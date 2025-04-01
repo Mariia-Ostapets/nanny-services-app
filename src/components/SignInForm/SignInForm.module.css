@@ -1,0 +1,76 @@
+.signInForm {
+  position: relative;
+}
+
+.signInFormTitle {
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--primary-color-black);
+  margin-bottom: 20px;
+}
+
+.signInFormText {
+  color: var(--primary-color-gray);
+  margin-bottom: 40px;
+}
+
+input {
+  display: block;
+  outline: transparent;
+  background-color: transparent;
+  border: 1px solid rgba(17, 16, 28, 0.1);
+  border-radius: 12px;
+  padding-left: 18px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: 438px;
+  height: 52px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--primary-color-black);
+}
+
+.signInFormEmail {
+  margin-bottom: 16px;
+}
+
+.signInFormPwd {
+  margin-bottom: 40px;
+}
+
+label {
+  position: relative;
+  display: block;
+}
+
+input::placeholder {
+  color: var(--primary-color-black);
+}
+
+.signInFormIcon {
+  fill: transparent;
+  stroke: var(--primary-color-black);
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.errorMessageName,
+.errorMessageEmail,
+.errorMessagePwd {
+  color: var(--secondary-color-red);
+  position: absolute;
+  font-size: 12px;
+}
+
+.errorMessageEmail {
+  top: 200px;
+}
+
+.errorMessagePwd {
+  top: 267px;
+}

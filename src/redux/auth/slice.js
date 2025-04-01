@@ -13,6 +13,7 @@ const handlePending = state => {
 };
 
 const handleRejected = (state, action) => {
+  console.error('SIGN IN REJECTED:', action.payload);
   state.loading = false;
   state.error = action.payload;
 };
@@ -45,6 +46,7 @@ const authSlice = createSlice({
       .addCase(signUp.rejected, handleRejected)
       .addCase(signIn.pending, handlePending)
       .addCase(signIn.fulfilled, (state, action) => {
+        console.log('SIGN IN SUCCESS:', action.payload);
         state.loading = false;
         state.user = action.payload;
         state.isLoggedIn = true;
