@@ -21,7 +21,6 @@ export const signUp = createAsyncThunk(
       await updateProfile(user, { displayName: name });
 
       const userId = user.uid;
-
       const userRef = ref(db, `users/${userId}`);
 
       const snapshot = await get(userRef);

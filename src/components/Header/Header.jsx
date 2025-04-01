@@ -32,7 +32,7 @@ export default function Header({ type }) {
         {isLoggedIn ? (
           <UserMenu closeModal={closeModal} />
         ) : (
-          <AuthMenu openModal={openModal} />
+          <AuthMenu openModal={openModal} closeModal={closeModal} />
         )}
       </div>
       <ModalForm modalIsOpen={!!modalContent} closeModal={closeModal}>

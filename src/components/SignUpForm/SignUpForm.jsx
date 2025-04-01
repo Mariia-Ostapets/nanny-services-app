@@ -1,37 +1,95 @@
+import { useId, useState } from 'react';
 import Button from '../ui/Button/Button';
 import css from './SignUpForm.module.css';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserUid, selectUserIsLoading } from '../../redux/auth/selectors';
+import { signUp } from '../../redux/auth/operations';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
-export default function SignUpForm({ type, variant }) {
+const schema = yup.object().shape({
+  name: yup
+    .string()
+    .required('Name is required')
+    .max(50, 'Maximum 50 characters'),
+  email: yup
+    .string()
+    .email('Please enter a valid email address')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters'),
+});
+
+export default function SignUpForm({ closeModal }) {
+  const [isEyeOff, setIsEyeOff] = useState(true);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const pwdId = useId();
+
+  const dispatch = useDispatch();
+
+  const onSubmit = data => {
+    dispatch(signUp(data));
+    closeModal();
+  };
+
+  const togglePasswordVisibility = () => setIsEyeOff(prev => !prev);
 
   return (
-    <form
-      className={css.signUpForm}
-      onSubmit={handleSubmit(data => console.log(data))}
-    >
+    <form className={css.signUpForm} onSubmit={handleSubmit(onSubmit)}>
       <h2 className={css.signUpFormTitle}>Registration</h2>
       <p className={css.signUpFormText}>
         Thank you for your interest in our platform! In order to register, we
         need some information. Please provide us with the following information.
       </p>
-      <input type="text" placeholder="Name" {...register('firstName')} />
       <input
+        className={css.signUpFormName}
+        type="text"
+        placeholder="Name"
+        {...register('name')}
+      />
+      {errors.name && (
+        <p className={css.errorMessageName}>{errors.name.message}</p>
+      )}
+      <input
+        className={css.signUpFormEmail}
         type="text"
         placeholder="Email"
-        {...register('lastName', { required: true })}
+        {...register('email')}
       />
-      {errors.lastName && <p>Last name is required.</p>}
-      <input
-        type="password"
-        placeholder="Password"
-        {...register('age', { pattern: /\d+/ })}
-      />
-      {errors.age && <p>Please enter number for age.</p>}
+      {errors.email && (
+        <p className={css.errorMessageEmail}>{errors.email.message}</p>
+      )}
+      <label htmlFor={pwdId}>
+        <input
+          className={css.signUpFormPwd}
+          id={pwdId}
+          type={isEyeOff ? 'password' : 'text'}
+          placeholder="Password"
+          {...register('password')}
+        />
+        <svg
+          className={css.signUpFormIcon}
+          width={20}
+          height={20}
+          onClick={togglePasswordVisibility}
+        >
+          <use href={`/sprite.svg#icon-${isEyeOff ? 'eye-off' : 'eye'}`} />
+        </svg>
+      </label>
+      {errors.password && (
+        <p className={css.errorMessagePwd}>{errors.password.message}</p>
+      )}
       <Button type="submit" variant="signUpLogInModalSend">
         Sign Up
       </Button>

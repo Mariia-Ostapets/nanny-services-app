@@ -1,3 +1,7 @@
+.signUpForm {
+  position: relative;
+}
+
 .signUpFormTitle {
   font-weight: 500;
   font-size: 40px;
@@ -29,14 +33,49 @@ input {
   color: var(--primary-color-black);
 }
 
-input:not(:last-child) {
+.signUpFormName,
+.signUpFormEmail {
   margin-bottom: 16px;
 }
 
-input:last-of-type {
+.signUpFormPwd {
   margin-bottom: 40px;
+}
+
+label {
+  position: relative;
+  display: block;
 }
 
 input::placeholder {
   color: var(--primary-color-black);
+}
+
+.signUpFormIcon {
+  fill: transparent;
+  stroke: var(--primary-color-black);
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.errorMessageName,
+.errorMessageEmail,
+.errorMessagePwd {
+  color: var(--secondary-color-red);
+  position: absolute;
+  font-size: 12px;
+}
+
+.errorMessageName {
+  top: 220px;
+}
+
+.errorMessageEmail {
+  top: 288px;
+}
+
+.errorMessagePwd {
+  top: 355px;
 }
