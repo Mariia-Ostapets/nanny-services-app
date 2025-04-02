@@ -22,18 +22,33 @@
   min-height: 48px; */
 }
 
-/* .logInBtn:hover,
+.logInBtn:hover,
 .logInBtn:focus,
 .logOutBtn:hover,
 .logOutBtn:focus {
   color: var(--primary-color-blue);
-  border-color: var(--primary-color-blue);
-} */
+  background-color: var(--primary-color-gray-light);
+}
 
 .registrationBtn,
 .loadMoreBtn {
   background-color: var(--primary-color-blue);
   padding: 14px 40px;
+  transition: color var(--primary-transition),
+    background-color var(--primary-transition);
+}
+
+.loadMoreBtn {
+  display: block;
+  margin: 0 auto;
+}
+
+.registrationBtn:hover,
+.registrationBtn:focus,
+.loadMoreBtn:hover,
+.loadMoreBtn:focus {
+  color: var(--primary-color-blue);
+  background-color: var(--primary-color-gray-light);
 }
 
 .readMoreBtn {

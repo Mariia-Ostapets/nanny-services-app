@@ -2,6 +2,9 @@ import clsx from 'clsx';
 import css from './Button.module.css';
 
 export default function Button({ children, type, variant, ...rest }) {
+  console.log(variant);
+  console.log('loadMoreBtn class:', css.loadMoreBtn);
+
   return (
     <button
       type={type}

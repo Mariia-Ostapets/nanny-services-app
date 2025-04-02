@@ -7,6 +7,12 @@
 
 .link {
   position: relative;
+  transition: color var(--primary-transition);
+}
+
+.link:hover,
+.link:focus {
+  color: var(--primary-color-white);
 }
 
 .active::after {
