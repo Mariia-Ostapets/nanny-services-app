@@ -4,11 +4,11 @@ import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 
-export default function Navigation({ type }) {
+export default function Navigation({ type, isNanniesHeader }) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const buildLinkClass = ({ isActive }) => {
-    return clsx(css.link, isActive && css.active);
+    return clsx(css.link, isActive && isNanniesHeader && css.active);
   };
 
   return (

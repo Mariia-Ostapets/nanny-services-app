@@ -34,7 +34,7 @@ export default function Header({ type }) {
           !type && css.headerNavAndMenuWrapperNannies
         )}
       >
-        <Navigation type={type} />
+        <Navigation type={type} isNanniesHeader={!type} />
         {isLoggedIn ? (
           <UserMenu closeModal={closeModal} />
         ) : (

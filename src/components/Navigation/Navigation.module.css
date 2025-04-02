@@ -5,10 +5,19 @@
   color: var(--primary-color-gray-light);
 }
 
-/* .link {
-  transition: color var(--primary-transition);
+.link {
+  position: relative;
 }
 
-.active {
-  color: var(--secondary-color-blue);
-} */
+.active::after {
+  position: absolute;
+  display: block;
+  content: '';
+  background-color: var(--primary-color-white);
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
