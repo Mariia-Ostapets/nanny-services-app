@@ -5,8 +5,10 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateProfile,
 } from 'firebase/auth';
 import { get, ref, set } from 'firebase/database';
+import { toast } from 'react-hot-toast';
 
 // Реєстрація користувача
 export const signUp = createAsyncThunk(
@@ -28,8 +30,16 @@ export const signUp = createAsyncThunk(
         await set(userRef, { name, email, favorites: [] });
       }
 
+      toast.success('User successfully registered!');
+
       return { uid: userId, name: user.displayName, email: user.email };
     } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        toast.error('Email already in use!');
+      } else {
+        toast.error('Registration error. Please try again later.');
+      }
+
       return rejectWithValue(error.message);
     }
   }
@@ -59,6 +69,9 @@ export const signIn = createAsyncThunk(
         });
       }
       console.log('User after login:', { user });
+
+      // toast.success('User successfully logged in!');
+
       return {
         uid: userId,
         name: user.displayName,
@@ -67,6 +80,13 @@ export const signIn = createAsyncThunk(
       };
     } catch (error) {
       console.error('SIGN IN ERROR:', error.message);
+
+      if (error.code === 'auth/invalid-credential') {
+        toast.error('Email or password are wrong');
+      } else {
+        toast.error('Log in error. Please try again later.');
+      }
+
       return rejectWithValue(error.message);
     }
   }
@@ -78,6 +98,7 @@ export const logOut = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await signOut(auth);
+      toast.success('User was logged out!');
     } catch (error) {
       return rejectWithValue(error.message);
     }

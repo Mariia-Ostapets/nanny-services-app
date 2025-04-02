@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { signIn } from '../../redux/auth/operations';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { toast } from 'react-hot-toast';
 
 const schema = yup.object().shape({
   email: yup
@@ -24,7 +25,7 @@ export default function SignInForm({ closeModal }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -33,10 +34,21 @@ export default function SignInForm({ closeModal }) {
 
   const dispatch = useDispatch();
 
-  const onSubmit = data => {
+  // const onSubmit = data => {
+  //   console.log('Dispatching signIn with:', data);
+  //   dispatch(signIn(data));
+  //   closeModal();
+  // };
+
+  const onSubmit = async data => {
     console.log('Dispatching signIn with:', data);
-    dispatch(signIn(data));
-    closeModal();
+    try {
+      await dispatch(signIn(data)).unwrap();
+      toast.success('User successfully logged in!');
+      closeModal();
+    } catch (error) {
+      console.error('SIGN IN ERROR:', error);
+    }
   };
 
   const togglePasswordVisibility = () => setIsEyeOff(prev => !prev);
@@ -78,7 +90,7 @@ export default function SignInForm({ closeModal }) {
         <p className={css.errorMessagePwd}>{errors.password.message}</p>
       )}
       <Button type="submit" variant="signUpLogInModalSend">
-        Log In
+        {isSubmitting ? 'Loading...' : 'Log In'}
       </Button>
     </form>
   );

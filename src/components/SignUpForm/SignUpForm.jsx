@@ -11,7 +11,7 @@ const schema = yup.object().shape({
   name: yup
     .string()
     .required('Name is required')
-    .max(50, 'Maximum 50 characters'),
+    .max(10, 'Maximum 10 characters'),
   email: yup
     .string()
     .email('Please enter a valid email address')
@@ -37,9 +37,19 @@ export default function SignUpForm({ closeModal }) {
 
   const dispatch = useDispatch();
 
-  const onSubmit = data => {
-    dispatch(signUp(data));
-    closeModal();
+  // const onSubmit = data => {
+  //   dispatch(signUp(data));
+  //   closeModal();
+  // };
+
+  const onSubmit = async data => {
+    try {
+      await dispatch(signUp(data)).unwrap();
+      // toast.success('User successfully registered!');
+      closeModal();
+    } catch (error) {
+      console.error('SIGN UP ERROR:', error);
+    }
   };
 
   const togglePasswordVisibility = () => setIsEyeOff(prev => !prev);

@@ -1,9 +1,25 @@
 .userMenuContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.userMenuAvatarAndNameContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.userMenuAvatarContainer {
   width: 40px;
   height: 40px;
   border-radius: 10px;
   background-color: var(--primary-color-gray-light);
-  margin-right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .userMenuName {

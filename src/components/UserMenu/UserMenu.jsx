@@ -16,13 +16,15 @@ export default function UserMenu() {
   console.log('User from Redux:', user);
 
   return (
-    <div>
-      <div className={css.userMenuContainer}>
-        <svg className={css.userMenuIcon} width={24} height={24}>
-          <use href="/sprite.svg#icon-user" />
-        </svg>
+    <div className={css.userMenuContainer}>
+      <div className={css.userMenuAvatarAndNameContainer}>
+        <div className={css.userMenuAvatarContainer}>
+          <svg className={css.userMenuIcon} width={24} height={24}>
+            <use href="/sprite.svg#icon-user" />
+          </svg>
+        </div>
+        <p className={css.userMenuName}>{user.name}</p>
       </div>
-      <p className={css.userMenuName}>{user.name}</p>
       <Button type="button" variant="logOut" onClick={handleLogOut}>
         Log out
       </Button>

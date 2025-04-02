@@ -28,7 +28,12 @@ export default function Header({ type }) {
       <Link className={css.logo} to="/">
         Nanny.Services
       </Link>
-      <div className={css.headerNavAndMenuWrapper}>
+      <div
+        className={clsx(
+          type && css.headerNavAndMenuWrapper,
+          !type && css.headerNavAndMenuWrapperNannies
+        )}
+      >
         <Navigation type={type} />
         {isLoggedIn ? (
           <UserMenu closeModal={closeModal} />

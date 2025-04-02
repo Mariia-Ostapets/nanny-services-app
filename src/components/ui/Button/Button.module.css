@@ -9,6 +9,9 @@
   border: transparent;
   background-color: transparent;
   border-radius: 30px;
+  transition: color var(--primary-transition),
+    background-color var(--primary-transition),
+    border-color var(--primary-transition);
 }
 
 .logInBtn,
@@ -18,6 +21,14 @@
   /* max-width: 134px;
   min-height: 48px; */
 }
+
+/* .logInBtn:hover,
+.logInBtn:focus,
+.logOutBtn:hover,
+.logOutBtn:focus {
+  color: var(--primary-color-blue);
+  border-color: var(--primary-color-blue);
+} */
 
 .registrationBtn,
 .loadMoreBtn {

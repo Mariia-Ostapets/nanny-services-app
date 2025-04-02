@@ -38,3 +38,10 @@
   justify-content: center;
   gap: 92px;
 }
+
+.headerNavAndMenuWrapperNannies {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 217px;
+}
