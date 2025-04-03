@@ -1,9 +1,9 @@
-.filtersForm {
+.filtersWrapper {
   padding-top: 152px;
   padding-bottom: 32px;
 }
 
-.filtersFormTitle {
+.filtersTitle {
   font-weight: 500;
   font-size: 14px;
   line-height: 1.29;
@@ -11,7 +11,7 @@
   margin-bottom: 8px;
 }
 
-.filtersFormInput {
+.filtersField {
   border-radius: 14px;
   padding: 16px 157px 16px 18px;
   width: 226px;
@@ -21,4 +21,23 @@
   font-size: 18px;
   line-height: 1.11111;
   color: var(--primary-color-gray-light);
+  position: relative;
+}
+
+.filtersList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  border-radius: 14px;
+  box-shadow: 0 20px 69px 0 rgba(0, 0, 0, 0.07);
+  background: #fff;
+  width: 226px;
+  padding: 14px 18px;
+  text-align: start;
+  color: var(--primary-color-black);
+  list-style: none;
+  overflow-y: auto;
+  margin-top: 4px;
 }

@@ -11,10 +11,11 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/slice';
+import { nanniesReducer } from './nannies/slice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  //   nannies: nanniesReducer,
+  nannies: nanniesReducer,
 });
 
 const persistConfig = {
