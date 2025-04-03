@@ -1,9 +1,9 @@
-.filtersWrapper {
+.filterWrapper {
   padding-top: 152px;
   padding-bottom: 32px;
 }
 
-.filtersTitle {
+.filterTitle {
   font-weight: 500;
   font-size: 14px;
   line-height: 1.29;
@@ -11,20 +11,23 @@
   margin-bottom: 8px;
 }
 
-.filtersField {
+.filterContainer {
   border-radius: 14px;
-  padding: 16px 157px 16px 18px;
+  padding: 16px 14px 16px 18px;
   width: 226px;
   height: 48px;
   background-color: var(--primary-color-blue);
   font-weight: 500;
   font-size: 18px;
-  line-height: 1.11111;
+  line-height: 1.11;
   color: var(--primary-color-gray-light);
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.filtersList {
+.filterList {
   position: absolute;
   top: 100%;
   left: 0;
@@ -32,12 +35,29 @@
   z-index: 99;
   border-radius: 14px;
   box-shadow: 0 20px 69px 0 rgba(0, 0, 0, 0.07);
-  background: #fff;
-  width: 226px;
-  padding: 14px 18px;
+  background-color: var(--primary-color-white);
+  width: 100%;
+  padding-left: 18px;
+  padding-top: 14px;
+  padding-bottom: 18px;
   text-align: start;
   color: var(--primary-color-black);
-  list-style: none;
-  overflow-y: auto;
-  margin-top: 4px;
+  margin-top: 8px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.11;
+  color: rgba(17, 16, 28, 0.3);
+}
+
+.filterItem {
+  cursor: pointer;
+  transition: color var(--primary-transition);
+}
+
+.filterItem:hover {
+  color: var(--primary-color-black);
+}
+
+.filterItem:not(:last-child) {
+  margin-bottom: 12px;
 }

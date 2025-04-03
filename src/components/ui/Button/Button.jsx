@@ -16,7 +16,6 @@ export default function Button({ children, type, variant, ...rest }) {
           (variant === 'loadMore' && css.loadMoreBtn) ||
           (variant === 'readMore' && css.readMoreBtn) ||
           (variant === 'makeAppointment' && css.makeAppointmentBtn) ||
-          (variant === 'readMore' && css.readMoreBtn) ||
           (variant === 'favourites' && css.favouritesBtn) ||
           (variant === 'signUpLogInModalSend' && css.signUpLogInModalSendBtn) ||
           (variant === 'close-modal' && css.closeModalBtn)

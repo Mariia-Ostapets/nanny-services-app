@@ -9,11 +9,12 @@ import {
   selectLoading,
   selectPage,
 } from '../../redux/nannies/selectors';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { getNannies } from '../../redux/nannies/operations';
 import NannnieCard from '../NannieCard/NannieCard';
 import { selectFavorites } from '../../redux/auth/selectors';
 import { incrementPage, resetNannies } from '../../redux/nannies/slice';
+import Loader from '../ui/Loader/Loader';
 
 export default function NanniesList() {
   const dispatch = useDispatch();
@@ -34,14 +35,29 @@ export default function NanniesList() {
 
   console.log('Nannies:', nannies);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  const lastNannyRef = useRef(null); // Створюємо ref
+
+  useEffect(() => {
+    if (lastNannyRef.current) {
+      lastNannyRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, [nannies]); // Виконувати, коли додаються нові няні
+
+  if (loading) return <Loader />;
+  if (error) return toast.error('Nannies loading error');
   if (nannies.length === 0) return <p>No nannies found.</p>;
 
   return (
     <ul className={css.nanniesList}>
-      {nannies.map(item => (
-        <li key={item.id}>
+      {nannies.map((item, index) => (
+        <li
+          className={css.nanniesItem}
+          key={item.id}
+          ref={index === nannies.length - 1 ? lastNannyRef : null}
+        >
           <NannnieCard
             nannie={item}
             // onToggleFavorite={() => dispatch(toggleFavorite(item))}

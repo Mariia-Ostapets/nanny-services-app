@@ -22,10 +22,10 @@ export default function NanniesPage() {
   const loading = useSelector(selectLoading);
   const page = useSelector(selectPage);
 
-  useEffect(() => {
-    dispatch(resetNannies());
-    dispatch(getNannies({ filter }));
-  }, [dispatch, filter]);
+  // useEffect(() => {
+  //   dispatch(resetNannies());
+  //   dispatch(getNannies({ filter }));
+  // }, [dispatch, filter]);
 
   const handleLoadMore = () => {
     if (filter === 'Show all') {

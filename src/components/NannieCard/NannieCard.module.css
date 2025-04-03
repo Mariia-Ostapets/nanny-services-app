@@ -1,0 +1,46 @@
+.nannieCardContainer {
+  padding: 24px;
+  display: flex;
+  width: 100%;
+  gap: 24px;
+  border-radius: 24px;
+  background-color: var(--primary-color-gray-light);
+}
+
+.nannieAvatarWrapper {
+  border: 2px solid var(--accent-color-pink);
+  border-radius: 30px;
+  width: 120px;
+  height: 120px;
+  padding: 12px;
+  background-color: transparent;
+  position: relative;
+}
+
+.nannieAvatarWrapper::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  top: 12px;
+  right: 12px;
+  background-color: var(--accent-color-green);
+  z-index: 9999;
+}
+
+.nannieAvatarWrapper::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  top: 10px;
+  right: 10px;
+  background-color: var(--primary-color-gray-light);
+  z-index: 999;
+}
+
+.nannieAvatar {
+  border-radius: 15px;
+}

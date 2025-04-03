@@ -2,3 +2,7 @@
   padding-top: 32px;
   padding-bottom: 64px;
 }
+
+.nanniesItem:not(:last-child) {
+  margin-bottom: 32px;
+}

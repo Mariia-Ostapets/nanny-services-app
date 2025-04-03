@@ -8,17 +8,12 @@ import { selectFilter } from '../../redux/nannies/selectors';
 const options = [
   'A to Z',
   'Z to A',
-  'Lower price',
-  'Higher price',
+  'Less than 10$',
+  'Greater than 10$',
   'Popular',
   'Not popular',
   'Show all',
 ];
-
-// const selectOptions = options.map(option => ({
-//   filter: option,
-//   label: option,
-// }));
 
 export default function Filters() {
   const [openFilter, setOpenFilter] = useState(false);
@@ -41,23 +36,25 @@ export default function Filters() {
   };
 
   return (
-    <div className={css.filtersWrapper}>
-      <h2 className={css.filtersTitle}>Filters</h2>
+    <div className={css.filterWrapper}>
+      <h2 className={css.filterTitle}>Filters</h2>
       <div
-        className={css.filtersField}
+        className={css.filterContainer}
         onClick={handleToggle}
         aria-expanded={openFilter}
       >
-        <div className={css.filter} onClick={handleToggle}>
-          <span className={css.filterName}>{selectedFilter}</span>
-          <svg className={css.filterIcon}>
-            <use href="/sprite.svg#icon-chevron" />
-          </svg>
-        </div>
+        <div>{selectedFilter}</div>
+        <svg width="20" height="20">
+          <use href="/sprite.svg#icon-chevron-down" />
+        </svg>
         {openFilter && (
-          <ul className={css.filtersList}>
+          <ul className={css.filterList}>
             {options.map(option => (
-              <li key={option} onClick={() => handleFilterChange(option)}>
+              <li
+                className={css.filterItem}
+                key={option}
+                onClick={() => handleFilterChange(option)}
+              >
                 {option}
               </li>
             ))}

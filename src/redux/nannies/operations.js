@@ -42,20 +42,15 @@ export const getNannies = createAsyncThunk(
         baseQuery = query(ref(db, 'nannies'), orderByChild(field));
       }
 
-      console.log('Base query:', baseQuery);
-
       if (lastKey) {
         baseQuery = query(baseQuery, startAfter(lastKey), limitToFirst(limit));
       } else {
         baseQuery = query(baseQuery, limitToFirst(limit));
       }
 
-      console.log('Query being sent to Firebase:', baseQuery);
-
       const snapshot = await get(baseQuery);
       console.log('Firebase Snapshot:', snapshot.val());
       if (!snapshot.exists()) {
-        console.log('No data returned from Firebase');
         return { nannies: [], lastKey: null, hasMore: false };
       }
 
