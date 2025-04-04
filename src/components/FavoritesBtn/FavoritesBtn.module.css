@@ -1,0 +1,8 @@
+.iconHeart {
+  fill: transparent;
+  stroke: var(--primary-color-black);
+}
+
+.iconHeartBlue {
+  fill: var(--primary-color-blue);
+}

@@ -62,9 +62,11 @@
   padding: 14px 28px;
 }
 
-.favouritesBtn {
+.favoritesBtn {
   width: 26px;
   height: 26px;
+  /* fill: transparent;
+  stroke: var(--primary-color-black); */
 }
 
 .signUpLogInModalSendBtn {

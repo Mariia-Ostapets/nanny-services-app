@@ -1,3 +1,4 @@
+import FavoritesBtn from '../FavoritesBtn/FavoritesBtn';
 import Button from '../ui/Button/Button';
 import css from './NannieCard.module.css';
 
@@ -20,7 +21,9 @@ export default function NannnieCard({ nannie }) {
             <h3></h3>
             {nannie.name}
           </div>
-          <div></div>
+          <div>
+            <FavoritesBtn nannie={nannie} />
+          </div>
         </div>
         <ul>
           <li></li>

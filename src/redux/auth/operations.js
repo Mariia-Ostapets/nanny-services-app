@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from 'firebase/auth';
-import { get, ref, set } from 'firebase/database';
+import { get, ref, set, update } from 'firebase/database';
 import { toast } from 'react-hot-toast';
 
 // Реєстрація користувача
@@ -152,7 +152,13 @@ export const toggleFavorite = createAsyncThunk(
         favorites.push(nannieId);
       }
 
-      await set(userRef, favorites);
+      await update(ref(db, `users/${userId}`), {
+        favorites,
+      });
+
+      // await set(userRef, favorites);
+      console.log('Favorites:', favorites);
+
       return favorites;
     } catch (error) {
       return rejectWithValue(error.message);
