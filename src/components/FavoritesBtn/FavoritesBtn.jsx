@@ -1,18 +1,12 @@
 import css from './FavoritesBtn.module.css';
 import Button from '../../components/ui/Button/Button';
-import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectFavorites,
-  selectIsLoggedIn,
-  selectUserUid,
-} from '../../redux/auth/selectors';
+import { selectFavorites, selectIsLoggedIn } from '../../redux/auth/selectors';
 import toast from 'react-hot-toast';
 import { toggleFavorite } from '../../redux/auth/operations';
 
 export default function FavoritesBtn({ nannie }) {
   const dispatch = useDispatch();
-  const uid = useSelector(selectUserUid);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const favorites = useSelector(selectFavorites);
 

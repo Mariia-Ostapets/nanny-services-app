@@ -44,3 +44,57 @@
 .nannieAvatar {
   border-radius: 15px;
 }
+
+.nannieTitleAndNameWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+}
+
+.nannieTitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #8a8a89;
+}
+
+.nannieName {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--primary-color-black);
+}
+
+.locationWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.locationWrapper::after {
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 16px;
+  background-color: rgba(17, 16, 28, 0.2);
+  right: 16px;
+}
+
+.locationIcon {
+  fill: transparent;
+  stroke: var(--primary-color-black);
+}
+
+.starIcon {
+  stroke: #ffc531;
+}
+
+.locationText {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--primary-color-black);
+}

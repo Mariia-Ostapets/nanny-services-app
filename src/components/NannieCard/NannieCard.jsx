@@ -16,14 +16,37 @@ export default function NannnieCard({ nannie }) {
       </div>
       <div className={css.nannieInfo}>
         <div>
-          <div>
-            <h2>Nannie</h2>
-            <h3></h3>
-            {nannie.name}
+          <div className={css.nannieTitleAndNameWrapper}>
+            <h2 className={css.nannieTitle}>Nanny</h2>
+            <h3 className={css.nannieName}>{nannie.name}</h3>
           </div>
           <div>
-            <FavoritesBtn nannie={nannie} />
+            <div>
+              <div className={css.locationWrapper}>
+                <svg className={css.locationIcon} width="16" height="16">
+                  <use href={'/sprite.svg#icon-map-pin'} />
+                </svg>
+                <p className={css.locationText}>{nannie.location}</p>
+              </div>
+              <div>
+                <svg className={css.starIcon} width="16" height="16">
+                  <use href={'/sprite.svg#icon-star'} />
+                </svg>
+                <p className={css.locationText}>{nannie.rating}</p>
+              </div>
+              <div>
+                <p className={css.priceTitle}>Price / 1 hour:</p>
+                <p className={css.priceText}>{nannie.price_per_hour}$</p>
+              </div>
+            </div>
+            <div>
+              <div></div>
+            </div>
+            <div>
+              <div></div>
+            </div>
           </div>
+          <FavoritesBtn nannie={nannie} />
         </div>
         <ul>
           <li></li>
