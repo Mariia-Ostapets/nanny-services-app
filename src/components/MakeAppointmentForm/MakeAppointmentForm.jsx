@@ -53,7 +53,70 @@ export default function MakeAppointmentForm({ closeModal, nannie }) {
           <h3 className={css.nannieName}>{nannie.name}</h3>
         </div>
       </div>
-      <input {...register('name')} type="text" placeholder="Your name" />
+      <input
+        className={css.makeAppFormInput}
+        type="text"
+        placeholder="Address"
+        {...register('address')}
+      />
+      {errors.address && (
+        <p className={css.errorMessageName}>{errors.address.message}</p>
+      )}
+      <input
+        className={css.makeAppFormInput}
+        type="tel"
+        placeholder="+380"
+        {...register('tel')}
+      />
+      {errors.tel && (
+        <p className={css.errorMessageEmail}>{errors.tel.message}</p>
+      )}
+      <input
+        className={css.makeAppFormInput}
+        type="number"
+        placeholder="Child's age"
+        {...register('age')}
+      />
+      {errors.age && (
+        <p className={css.errorMessageEmail}>{errors.age.message}</p>
+      )}
+      <input
+        className={css.makeAppFormInput}
+        type="number"
+        placeholder="00:00"
+        {...register('time')}
+      />
+      {errors.time && (
+        <p className={css.errorMessageEmail}>{errors.time.message}</p>
+      )}
+      <input
+        className={css.makeAppFormInput}
+        type="email"
+        placeholder="Email"
+        {...register('email')}
+      />
+      {errors.time && (
+        <p className={css.errorMessageEmail}>{errors.email.message}</p>
+      )}
+      <input
+        className={css.makeAppFormInput}
+        type="text"
+        placeholder="Father's or mother's name"
+        {...register('name')}
+      />
+      {errors.name && (
+        <p className={css.errorMessageEmail}>{errors.name.message}</p>
+      )}
+      <textarea
+        className={css.makeAppFormInput}
+        type="text"
+        placeholder="Comment"
+        rows={4}
+        {...register('comment')}
+      />
+      {errors.comment && (
+        <p className={css.errorMessageEmail}>{errors.comment.message}</p>
+      )}
       <Button type="submit" variant="signUpLogInModalSend">
         Send
       </Button>
