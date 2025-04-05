@@ -1,0 +1,44 @@
+.formTitle {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--primary-color-black);
+}
+
+.formDescription {
+  margin-bottom: 40px;
+}
+
+.nannieInfoContainer {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.nannieAvatarWrapper {
+  border-radius: 15px;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+}
+
+.nannieNameWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nannieTitle {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33333;
+  color: #8a8a89;
+}
+
+.nannieName {
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--primary-color-black);
+}

@@ -45,11 +45,21 @@
   border-radius: 15px;
 }
 
+.nannieInfo {
+  width: 992px;
+}
+
+.nannieTopInfoWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
 .nannieTitleAndNameWrapper {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  justify-content: center;
 }
 
 .nannieTitle {
@@ -66,21 +76,34 @@
   color: var(--primary-color-black);
 }
 
-.locationWrapper {
+.infoAndFavBtnWrapper {
   display: flex;
-  justify-content: center;
+  gap: 48px;
+}
+
+.infoWrapper {
+  display: flex;
+  gap: 32px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--primary-color-black);
+}
+
+.infoItemWrapper {
+  display: flex;
   align-items: center;
   gap: 8px;
   position: relative;
 }
 
-.locationWrapper::after {
+.infoItemWrapper:not(:last-child)::after {
   position: absolute;
   content: '';
   width: 2px;
   height: 16px;
   background-color: rgba(17, 16, 28, 0.2);
-  right: 16px;
+  right: -16px;
 }
 
 .locationIcon {
@@ -88,13 +111,40 @@
   stroke: var(--primary-color-black);
 }
 
-.starIcon {
-  stroke: #ffc531;
+.priceText {
+  color: var(--accent-color-green);
 }
 
-.locationText {
+.infoList {
+  margin-bottom: 24px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.infoListItem {
+  border-radius: 24px;
+  padding: 8px 16px;
+  background-color: var(--primary-color-gray-dark);
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
+  display: flex;
+  gap: 4px;
+}
+
+.infoListItemTitle {
+  color: #8a8a89;
+}
+
+.infoListItemInfo {
   color: var(--primary-color-black);
+}
+
+.nannieAge {
+  text-decoration: underline;
+}
+
+.nannieDescription {
+  color: var(--primary-color-gray);
 }

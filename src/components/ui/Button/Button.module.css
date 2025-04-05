@@ -18,8 +18,6 @@
 .logOutBtn {
   border: 1px solid rgba(251, 251, 251, 0.4);
   padding: 14px 39px;
-  /* max-width: 134px;
-  min-height: 48px; */
 }
 
 .logInBtn:hover,
@@ -52,9 +50,10 @@
 }
 
 .readMoreBtn {
-  /* text-decoration-skip-ink: none; */
   color: var(--primary-color-black);
   text-decoration: underline;
+  padding: 0;
+  margin-top: 14px;
 }
 
 .makeAppointmentBtn {
@@ -65,8 +64,7 @@
 .favoritesBtn {
   width: 26px;
   height: 26px;
-  /* fill: transparent;
-  stroke: var(--primary-color-black); */
+  padding: 0;
 }
 
 .signUpLogInModalSendBtn {

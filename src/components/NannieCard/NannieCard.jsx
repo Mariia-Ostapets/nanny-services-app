@@ -1,8 +1,17 @@
 import FavoritesBtn from '../FavoritesBtn/FavoritesBtn';
 import Button from '../ui/Button/Button';
 import css from './NannieCard.module.css';
+import { calculateAge, getCharactersToString } from '../../utils/index';
+import Reviews from '../Reviews/Reviews';
+import { useState } from 'react';
 
 export default function NannnieCard({ nannie }) {
+  const [openReviews, setOpenReviews] = useState(false);
+
+  const handleClick = () => {
+    setOpenReviews(true);
+  };
+
   return (
     <div className={css.nannieCardContainer}>
       <div className={css.nannieAvatarWrapper}>
@@ -15,45 +24,67 @@ export default function NannnieCard({ nannie }) {
         />
       </div>
       <div className={css.nannieInfo}>
-        <div>
+        <div className={css.nannieTopInfoWrapper}>
           <div className={css.nannieTitleAndNameWrapper}>
             <h2 className={css.nannieTitle}>Nanny</h2>
             <h3 className={css.nannieName}>{nannie.name}</h3>
           </div>
-          <div>
-            <div>
-              <div className={css.locationWrapper}>
+          <div className={css.infoAndFavBtnWrapper}>
+            <div className={css.infoWrapper}>
+              <div className={css.infoItemWrapper}>
                 <svg className={css.locationIcon} width="16" height="16">
                   <use href={'/sprite.svg#icon-map-pin'} />
                 </svg>
-                <p className={css.locationText}>{nannie.location}</p>
+                <p>{nannie.location}</p>
               </div>
-              <div>
-                <svg className={css.starIcon} width="16" height="16">
+              <div className={css.infoItemWrapper}>
+                <svg width="16" height="16">
                   <use href={'/sprite.svg#icon-star'} />
                 </svg>
-                <p className={css.locationText}>{nannie.rating}</p>
+                <p>{nannie.rating}</p>
               </div>
-              <div>
-                <p className={css.priceTitle}>Price / 1 hour:</p>
+              <div className={css.infoItemWrapper}>
+                <p>Price / 1 hour:</p>
                 <p className={css.priceText}>{nannie.price_per_hour}$</p>
               </div>
             </div>
-            <div>
-              <div></div>
-            </div>
-            <div>
-              <div></div>
-            </div>
+            <FavoritesBtn nannie={nannie} />
           </div>
-          <FavoritesBtn nannie={nannie} />
         </div>
-        <ul>
-          <li></li>
+        <ul className={css.infoList}>
+          <li className={css.infoListItem}>
+            <p className={css.infoListItemTitle}>Age:</p>
+            <p className={`${css.infoListItemInfo} ${css.nannieAge}`}>
+              {calculateAge(nannie.birthday)}
+            </p>
+          </li>
+          <li className={css.infoListItem}>
+            <p className={css.infoListItemTitle}>Experience:</p>
+            <p className={css.infoListItemInfo}>{nannie.experience}</p>
+          </li>
+          <li className={css.infoListItem}>
+            <p className={css.infoListItemTitle}>Kids age:</p>
+            <p className={css.infoListItemInfo}>{nannie.kids_age}</p>
+          </li>
+          <li className={css.infoListItem}>
+            <p className={css.infoListItemTitle}>Characters:</p>
+            <p className={css.infoListItemInfo}>
+              {getCharactersToString(nannie.characters)}
+            </p>
+          </li>
+          <li className={css.infoListItem}>
+            <p className={css.infoListItemTitle}>Education:</p>
+            <p className={css.infoListItemInfo}>{nannie.education}</p>
+          </li>
         </ul>
-        <Button type="button" variant="readMore">
-          Read more
-        </Button>
+        <p className={css.nannieDescription}>{nannie.about}</p>
+        {!openReviews ? (
+          <Button type="button" variant="readMore" onClick={handleClick}>
+            Read more
+          </Button>
+        ) : (
+          <Reviews nannie={nannie} />
+        )}
       </div>
     </div>
   );
