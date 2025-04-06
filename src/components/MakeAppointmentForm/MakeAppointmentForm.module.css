@@ -42,3 +42,38 @@
   line-height: 1.5;
   color: var(--primary-color-black);
 }
+
+.halfInputWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 16px;
+  column-gap: 8px;
+  margin-bottom: 16px;
+}
+
+.makeAppFormInput.halfInput {
+  width: calc((100% - 8px) / 2);
+}
+
+.makeAppFormInput.wholeInput {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+textarea {
+  margin-bottom: 40px;
+  display: block;
+  outline: transparent;
+  background-color: transparent;
+  border: 1px solid rgba(17, 16, 28, 0.1);
+  border-radius: 12px;
+  padding-left: 18px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  /* width: 438px;
+  height: 52px; */
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--primary-color-black);
+}

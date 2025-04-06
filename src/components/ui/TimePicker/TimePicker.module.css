@@ -1,0 +1,52 @@
+.timePickerWrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.clockIcon {
+  fill: none;
+  stroke: var(--primary-color-black);
+  position: absolute;
+  top: 16px;
+  right: 18px;
+}
+
+.timeDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.timeDropdownTitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.timeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.timeOption {
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.timeOption:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  background-color: #dbeafe; /* light blue */
+  font-weight: bold;
+}

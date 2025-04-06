@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Button from '../ui/Button/Button';
 import { toast } from 'react-hot-toast';
+import TimePicker from '../ui/TimePicker/TimePicker';
 
 const schema = yup.object().shape({
   name: yup
@@ -25,6 +26,7 @@ export default function MakeAppointmentForm({ closeModal, nannie }) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -53,44 +55,41 @@ export default function MakeAppointmentForm({ closeModal, nannie }) {
           <h3 className={css.nannieName}>{nannie.name}</h3>
         </div>
       </div>
+      <div className={css.halfInputWrapper}>
+        <input
+          className={`${css.makeAppFormInput} ${css.halfInput}`}
+          type="text"
+          placeholder="Address"
+          {...register('address')}
+        />
+        {errors.address && (
+          <p className={css.errorMessageName}>{errors.address.message}</p>
+        )}
+        <input
+          className={`${css.makeAppFormInput} ${css.halfInput}`}
+          type="tel"
+          placeholder="+380"
+          {...register('tel')}
+        />
+        {errors.tel && (
+          <p className={css.errorMessageEmail}>{errors.tel.message}</p>
+        )}
+        <input
+          className={`${css.makeAppFormInput} ${css.halfInput}`}
+          type="number"
+          placeholder="Child's age"
+          {...register('age')}
+        />
+        {errors.age && (
+          <p className={css.errorMessageEmail}>{errors.age.message}</p>
+        )}
+        <TimePicker register={register} name="time" setValue={setValue} />
+        {errors.time && (
+          <p className={css.errorMessageEmail}>{errors.time.message}</p>
+        )}
+      </div>
       <input
-        className={css.makeAppFormInput}
-        type="text"
-        placeholder="Address"
-        {...register('address')}
-      />
-      {errors.address && (
-        <p className={css.errorMessageName}>{errors.address.message}</p>
-      )}
-      <input
-        className={css.makeAppFormInput}
-        type="tel"
-        placeholder="+380"
-        {...register('tel')}
-      />
-      {errors.tel && (
-        <p className={css.errorMessageEmail}>{errors.tel.message}</p>
-      )}
-      <input
-        className={css.makeAppFormInput}
-        type="number"
-        placeholder="Child's age"
-        {...register('age')}
-      />
-      {errors.age && (
-        <p className={css.errorMessageEmail}>{errors.age.message}</p>
-      )}
-      <input
-        className={css.makeAppFormInput}
-        type="number"
-        placeholder="00:00"
-        {...register('time')}
-      />
-      {errors.time && (
-        <p className={css.errorMessageEmail}>{errors.time.message}</p>
-      )}
-      <input
-        className={css.makeAppFormInput}
+        className={`${css.makeAppFormInput} ${css.wholeInput}`}
         type="email"
         placeholder="Email"
         {...register('email')}
@@ -99,7 +98,7 @@ export default function MakeAppointmentForm({ closeModal, nannie }) {
         <p className={css.errorMessageEmail}>{errors.email.message}</p>
       )}
       <input
-        className={css.makeAppFormInput}
+        className={`${css.makeAppFormInput} ${css.wholeInput}`}
         type="text"
         placeholder="Father's or mother's name"
         {...register('name')}
@@ -108,7 +107,7 @@ export default function MakeAppointmentForm({ closeModal, nannie }) {
         <p className={css.errorMessageEmail}>{errors.name.message}</p>
       )}
       <textarea
-        className={css.makeAppFormInput}
+        className={`${css.makeAppFormInput} ${css.wholeInput}`}
         type="text"
         placeholder="Comment"
         rows={4}
