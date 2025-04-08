@@ -5,75 +5,62 @@ import {
   ref,
   query,
   orderByKey,
-  orderByChild,
   startAfter,
   limitToFirst,
 } from 'firebase/database';
 
-export const getNannies = createAsyncThunk(
-  'nannies/getNannies',
-  async (
-    { filter = 'Show all', lastKey = null, page = 1 },
-    { rejectWithValue }
-  ) => {
+export const fetchNannies = createAsyncThunk(
+  'nannies/fetchNannies',
+  async ({ sortBy = 'Show all', lastKey = null }, { rejectWithValue }) => {
     try {
       const limit = 3;
 
-      const sortFieldMap = {
-        'Show all': null,
-        'A to Z': 'name',
-        'Z to A': 'name',
-        'Lower price': 'price_per_hour',
-        'Higher price': 'price_per_hour',
-        'Not popular': 'rating',
-        Popular: 'rating',
-      };
+      if (sortBy === 'Show all') {
+        let baseQuery = query(ref(db, 'nannies'), orderByKey());
 
-      const field = sortFieldMap[filter];
-      const isDescending = ['Z to A', 'Higher price', 'Popular'].includes(
-        filter
-      );
+        if (lastKey) {
+          baseQuery = query(
+            baseQuery,
+            startAfter(lastKey),
+            limitToFirst(limit)
+          );
+        } else {
+          baseQuery = query(baseQuery, limitToFirst(limit));
+        }
 
-      let baseQuery;
+        const snapshot = await get(baseQuery);
+        if (!snapshot.exists())
+          return { nannies: [], lastKey: null, hasMore: false };
 
-      if (field === null) {
-        baseQuery = query(ref(db, 'nannies'), orderByKey());
-      } else {
-        baseQuery = query(ref(db, 'nannies'), orderByChild(field));
+        const data = [];
+        snapshot.forEach(child => {
+          data.push({ id: child.key, ...child.val() });
+        });
+
+        const newLastKey = data.length ? data[data.length - 1].id : null;
+
+        return {
+          nannies: data,
+          lastKey: newLastKey,
+          hasMore: data.length === limit,
+        };
       }
 
-      if (lastKey) {
-        baseQuery = query(baseQuery, startAfter(lastKey), limitToFirst(limit));
-      } else {
-        baseQuery = query(baseQuery, limitToFirst(limit));
-      }
-
-      const snapshot = await get(baseQuery);
-      console.log('Firebase Snapshot:', snapshot.val());
-      if (!snapshot.exists()) {
+      const snapshot = await get(ref(db, 'nannies'));
+      if (!snapshot.exists())
         return { nannies: [], lastKey: null, hasMore: false };
-      }
 
-      let data = [];
-      snapshot.forEach(child => {
-        data.push({ id: child.key, ...child.val() });
-      });
-
-      if (isDescending) {
-        data.reverse();
-      }
-
-      const newLastKey = data.length ? data[data.length - 1].id : null;
-
-      console.log('Fetched nannies:', data);
+      const data = Object.entries(snapshot.val()).map(([id, value]) => ({
+        id,
+        ...value,
+      }));
 
       return {
         nannies: data,
-        lastKey: newLastKey,
-        hasMore: data.length === limit,
+        lastKey: null,
+        hasMore: true,
       };
     } catch (error) {
-      console.error('Error fetching nannies:', error.message);
       return rejectWithValue(error.message);
     }
   }

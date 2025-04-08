@@ -1,38 +1,57 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Filters from '../../components/Filters/Filters';
 import NanniesList from '../../components/NanniesList/NanniesList';
 import Button from '../../components/ui/Button/Button';
 import css from './NanniesPage.module.css';
-import { getNannies } from '../../redux/nannies/operations';
+import { incrementPage } from '../../redux/nannies/slice';
+import { fetchNannies } from '../../redux/nannies/operations';
+import { incrementFavoritesPage } from '../../redux/auth/slice';
+import { fetchFavorites } from '../../redux/auth/operations';
 import {
-  selectFilter,
+  selectFavorites,
+  selectFavoritesHasMore,
+  selectFavoritesPage,
+  selectFavoritesSortBy,
+  selectUserIsLoading,
+} from '../../redux/auth/selectors';
+import {
   selectHasMore,
-  selectLastKey,
+  selectItems,
   selectLoading,
   selectPage,
+  selectSortBy,
 } from '../../redux/nannies/selectors';
-import { incrementPage, resetNannies } from '../../redux/nannies/slice';
 
-export default function NanniesPage() {
+export default function NanniesPage({ showFavorites = false }) {
+  const [isLoadMore, setIsLoadMore] = useState(false);
+
   const dispatch = useDispatch();
-  const filter = useSelector(selectFilter);
-  const lastKey = useSelector(selectLastKey);
-  const hasMore = useSelector(selectHasMore);
-  const loading = useSelector(selectLoading);
-  const page = useSelector(selectPage);
 
-  // useEffect(() => {
-  //   dispatch(resetNannies());
-  //   dispatch(getNannies({ filter }));
-  // }, [dispatch, filter]);
+  const nannies = useSelector(showFavorites ? selectFavorites : selectItems);
+  const hasMore = useSelector(
+    showFavorites ? selectFavoritesHasMore : selectHasMore
+  );
+  const loading = useSelector(
+    showFavorites ? selectUserIsLoading : selectLoading
+  );
+  const sortBy = useSelector(
+    showFavorites ? selectFavoritesSortBy : selectSortBy
+  );
+  const page = useSelector(showFavorites ? selectFavoritesPage : selectPage);
 
   const handleLoadMore = () => {
-    if (filter === 'Show all') {
-      dispatch(getNannies({ filter, lastKey }));
+    setIsLoadMore(true);
+    if (showFavorites) {
+      dispatch(incrementFavoritesPage());
+      dispatch(fetchFavorites());
     } else {
-      dispatch(incrementPage());
-      dispatch(getNannies({ filter, page: page + 1 }));
+      if (sortBy === 'Show all') {
+        dispatch(fetchNannies({ sortBy, lastKey }));
+      } else {
+        dispatch(incrementPage());
+        dispatch(fetchNannies({ sortBy, page: page + 1 }));
+      }
     }
   };
 

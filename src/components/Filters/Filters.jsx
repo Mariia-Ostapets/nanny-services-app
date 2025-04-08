@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import css from './Filters.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetNannies, setFilter } from '../../redux/nannies/slice';
-import { getNannies } from '../../redux/nannies/operations';
-import { selectFilter } from '../../redux/nannies/selectors';
+import { setSortBy } from '../../redux/nannies/slice';
+import { fetchNannies } from '../../redux/nannies/operations';
+import { setSortByFavorites } from '../../redux/auth/slice';
+import { fetchFavorites } from '../../redux/auth/operations';
+import { selectFavoritesSortBy } from '../../redux/auth/selectors';
+import { selectSortBy } from '../../redux/nannies/selectors';
 
 const options = [
   'A to Z',
@@ -15,47 +18,70 @@ const options = [
   'Show all',
 ];
 
-export default function Filters() {
-  const [openFilter, setOpenFilter] = useState(false);
-  const currentFilter = useSelector(selectFilter);
+const selectOptions = options.map(option => ({
+  value: option,
+  label: option,
+}));
+
+export default function Filters({ showFavorites = false }) {
+  const [openSelector, setOpenSelector] = useState(null);
+
   const dispatch = useDispatch();
-  const [selectedFilter, setSelectedFilter] = useState(
-    currentFilter || 'Show all'
+
+  const sortBy = useSelector(
+    showFavorites ? selectFavoritesSortBy : selectSortBy
   );
 
   const handleFilterChange = newFilter => {
-    setSelectedFilter(newFilter);
-    dispatch(setFilter(newFilter));
-    dispatch(resetNannies());
-    dispatch(getNannies({ filter: newFilter }));
-    setOpenFilter(false);
+    if (showFavorites) {
+      dispatch(setSortByFavorites(newFilter));
+      dispatch(fetchFavorites());
+    } else {
+      dispatch(setSortBy(newFilter));
+      dispatch(fetchNannies({ sortBy: newFilter }));
+    }
+  };
+
+  const handleSelect = option => {
+    handleFilterChange(option.sortBy);
+    setOpenSelector(false);
   };
 
   const handleToggle = () => {
-    setOpenFilter(prev => !prev);
+    setOpenSelector(prev => !prev);
   };
 
+  const selectorRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = e => {
+      if (selectorRef.current && !selectorRef.current.contains(e.target)) {
+        setOpenSelector(null);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [setOpenSelector]);
+
   return (
-    <div className={css.filterWrapper}>
+    <div className={css.filterWrapper} ref={selectorRef}>
       <h2 className={css.filterTitle}>Filters</h2>
-      <div
-        className={css.filterContainer}
-        onClick={handleToggle}
-        aria-expanded={openFilter}
-      >
-        <div>{selectedFilter}</div>
+      <div className={css.filterContainer} onClick={handleToggle}>
+        <div>{sortBy}</div>
         <svg width="20" height="20">
           <use href="/sprite.svg#icon-chevron-down" />
         </svg>
-        {openFilter && (
+        {openSelector && (
           <ul className={css.filterList}>
-            {options.map(option => (
+            {selectOptions.map(option => (
               <li
                 className={css.filterItem}
-                key={option}
-                onClick={() => handleFilterChange(option)}
+                key={option.value}
+                onClick={() => handleSelect(option)}
               >
-                {option}
+                {option.label}
               </li>
             ))}
           </ul>

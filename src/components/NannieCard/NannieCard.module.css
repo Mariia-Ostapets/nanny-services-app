@@ -7,6 +7,11 @@
   background-color: var(--primary-color-gray-light);
 }
 
+.fadeOut {
+  opacity: 0;
+  transition: opacity var(--primary-transition);
+}
+
 .nannieAvatarWrapper {
   border: 2px solid var(--accent-color-pink);
   border-radius: 30px;

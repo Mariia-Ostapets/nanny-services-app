@@ -4,16 +4,42 @@ import css from './NannieCard.module.css';
 import { calculateAge, getCharactersToString } from '../../utils/index';
 import Reviews from '../Reviews/Reviews';
 import { useState } from 'react';
+import { selectFavorites, selectIsLoggedIn } from '../../redux/auth/selectors';
+import { useSelector } from 'react-redux';
 
-export default function NannnieCard({ nannie }) {
+export default function NannnieCard({
+  nannie,
+  onToggleFavorite,
+  showFavorites,
+}) {
   const [openReviews, setOpenReviews] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const favorites = useSelector(selectFavorites);
+  const isFavorite = favorites.some(item => item.id === nannie.id);
+
+  const handleFavorites = () => {
+    if (!isLoggedIn) {
+      toast.error('Functionality is available only to authorized users');
+      return;
+    }
+    if (showFavorites) {
+      setIsFadingOut(true);
+      setTimeout(() => {
+        onToggleFavorite();
+      }, 300);
+    } else {
+      onToggleFavorite();
+    }
+  };
 
   const handleClick = () => {
     setOpenReviews(true);
   };
 
   return (
-    <div className={css.nannieCardContainer}>
+    <div className={`${css.nannieCardContainer} ${isFadingOut && css.fadeOut}`}>
       <div className={css.nannieAvatarWrapper}>
         <img
           className={css.nannieAvatar}
@@ -48,7 +74,7 @@ export default function NannnieCard({ nannie }) {
                 <p className={css.priceText}>{nannie.price_per_hour}$</p>
               </div>
             </div>
-            <FavoritesBtn nannie={nannie} />
+            <FavoritesBtn nannie={nannie} onClick={handleFavorites} />
           </div>
         </div>
         <ul className={css.infoList}>

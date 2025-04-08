@@ -27,3 +27,52 @@ export function getCharactersToString(characters) {
 export function getFirstLetter(name) {
   return name.slice(0, 1).toUpperCase();
 }
+
+export function applySorting(data, sortBy = 'Show all') {
+  const sortFieldMap = {
+    'A to Z': 'name',
+    'Z to A': 'name',
+    'Less then 10$': 'price_per_hour',
+    'Greather then 10$': 'price_per_hour',
+    Popular: 'rating',
+    'Not popular': 'rating',
+  };
+
+  if (sortBy === 'Less then 10$') {
+    return data.filter(item => item.price_per_hour < 10);
+  }
+
+  if (sortBy === 'Greather then 10$') {
+    return data.filter(item => item.price_per_hour >= 10);
+  }
+
+  const field = sortFieldMap[sortBy];
+  const isDescending = ['Z to A', 'Popular'].includes(sortBy);
+
+  if (!field) return data;
+
+  return [...data].sort((a, b) => {
+    const aValue = a[field];
+    const bValue = b[field];
+
+    if (typeof aValue === 'string') {
+      return isDescending
+        ? bValue.localeCompare(aValue)
+        : aValue.localeCompare(bValue);
+    }
+
+    return isDescending ? bValue - aValue : aValue - bValue;
+  });
+}
+
+export function paginate(data, page = 1, perPage = 3) {
+  const startIndex = (page - 1) * perPage;
+  const paginated = data.slice(startIndex, startIndex + perPage);
+  const hasMore = startIndex + perPage < data.length;
+
+  return {
+    paginated,
+    hasMore,
+    lastKey: paginated.length ? paginated[paginated.length - 1].id : null,
+  };
+}

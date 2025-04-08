@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from 'firebase/auth';
-import { get, ref, set, update } from 'firebase/database';
+import { get, ref, set, update, remove } from 'firebase/database';
 import { toast } from 'react-hot-toast';
 
 // Реєстрація користувача
@@ -32,7 +32,12 @@ export const signUp = createAsyncThunk(
 
       toast.success('User successfully registered!');
 
-      return { uid: userId, name: user.displayName, email: user.email };
+      return {
+        uid: userId,
+        name: user.displayName,
+        email: user.email,
+        favorites: [],
+      };
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         toast.error('Email already in use!');
@@ -50,7 +55,6 @@ export const signIn = createAsyncThunk(
   'auth/signIn',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      console.log('Trying to sign in user with:', email);
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       console.log('User logged in:', user);
       const userId = user.uid;
@@ -60,7 +64,8 @@ export const signIn = createAsyncThunk(
 
       let favorites = [];
       if (snapshot.exists()) {
-        favorites = snapshot.val().favorites || [];
+        const val = snapshot.val();
+        favorites = val.favorites ? Object.values(val.favorites) : [];
       } else {
         await set(userRef, {
           name: user.displayName,
@@ -118,7 +123,8 @@ export const getCurrentUser = createAsyncThunk(
 
           let favorites = [];
           if (snapshot.exists()) {
-            favorites = snapshot.val().favorites || [];
+            const val = snapshot.val();
+            favorites = val.favorites ? Object.values(val.favorites) : [];
           }
           resolve({
             uid: userId,
@@ -134,32 +140,45 @@ export const getCurrentUser = createAsyncThunk(
   }
 );
 
+export const fetchFavorites = createAsyncThunk(
+  'auth/fetchFavorites',
+  async (_, { rejectWithValue }) => {
+    try {
+      const userId = auth.currentUser?.uid;
+      if (!userId) return rejectWithValue('User not authenticated');
+
+      const dbRef = ref(db, `users/${userId}/favorites`);
+      const snapshot = await get(dbRef);
+
+      if (!snapshot.exists()) return [];
+
+      return Object.values(snapshot.val());
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const toggleFavorite = createAsyncThunk(
   'auth/toggleFavorite',
-  async (nannieId, { getState, rejectWithValue }) => {
+  async (nannie, { rejectWithValue }) => {
     try {
-      const { auth } = getState();
       const userId = auth.user.uid;
       if (!userId) return rejectWithValue('User is not authenticated');
 
-      const userRef = ref(db, `users/${userId}/favorites`);
-      const snapshot = await get(userRef);
-      let favorites = snapshot.exists() ? snapshot.val() : [];
+      const favoritesRef = ref(db, `users/${userId}/favorites/${nannie.id}`);
+      const snapshot = await get(favoritesRef);
 
-      if (favorites.includes(nannieId)) {
-        favorites = favorites.filter(id => id !== nannieId);
+      if (snapshot.exists()) {
+        await remove(favoritesRef);
       } else {
-        favorites.push(nannieId);
+        await set(favoritesRef, { ...nannie, id: nannie.id });
       }
 
-      await update(ref(db, `users/${userId}`), {
-        favorites,
-      });
+      const updatedSnapshot = await get(ref(db, `users/${userId}/ favorites`));
 
-      // await set(userRef, favorites);
-      console.log('Favorites:', favorites);
-
-      return favorites;
+      console.log('updatedSnapshot:', updatedSnapshot);
+      return Object.values(updatedSnapshot.val() || []);
     } catch (error) {
       return rejectWithValue(error.message);
     }

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getNannies } from './operations';
+import { fetchNannies } from './operations';
+import { applySorting, paginate } from '../../utils';
 
 const handlePending = state => {
   state.loading = true;
@@ -16,7 +17,7 @@ const INITIAL_STATE = {
   items: [],
   page: 1,
   hasMore: false,
-  filter: 'Show all',
+  sortBy: 'Show all',
   lastKey: null,
   loading: false,
   error: null,
@@ -37,29 +38,46 @@ const nanniesSlice = createSlice({
     incrementPage: state => {
       state.page += 1;
     },
-    setFilter: (state, action) => {
-      state.filter = action.payload;
+    setSortBy: (state, action) => {
+      state.sortBy = action.payload;
+      state.page = 1;
     },
   },
   extraReducers: builder => {
     builder
-      .addCase(getNannies.pending, handlePending)
-      .addCase(getNannies.fulfilled, (state, action) => {
+      .addCase(fetchNannies.pending, handlePending)
+      .addCase(fetchNannies.fulfilled, (state, action) => {
         state.hasMore = action.payload.hasMore;
         state.lastKey = action.payload.lastKey || null;
         state.loading = false;
 
-        const newItems = action.payload.nannies.filter(
-          ({ id }) => !state.items.some(existing => existing.id === id)
-        );
+        let newItems = action.payload.nannies;
 
-        if (newItems.length) {
-          state.items.push(...newItems);
+        if (state.sortBy === 'Show all') {
+          const existingIds = new Set(state.items.map(item => item.id));
+          const filtered = newItems.filter(item => !existingIds.has(item.id));
+          state.items = [...state.items, ...filtered];
+        } else {
+          const sorted = applySorting(newItems, state.sortBy);
+          const { paginated, hasMore, lastKey } = paginate(sorted, state.page);
+
+          state.hasMore = hasMore;
+          state.lastKey = lastKey;
+
+          if (state.page === 1) {
+            state.items = paginated;
+          } else {
+            const existingIds = new Set(state.items.map(item => item.id));
+            const filtered = paginated.filter(
+              item => !existingIds.has(item.id)
+            );
+            state.items = [...state.items, ...filtered];
+          }
         }
       })
-      .addCase(getNannies.rejected, handleRejected);
+      .addCase(fetchNannies.rejected, handleRejected);
   },
 });
 
-export const { resetNannies, incrementPage, setFilter } = nanniesSlice.actions;
+export const { resetNannies, incrementPage, setSortBy } = nanniesSlice.actions;
 export const nanniesReducer = nanniesSlice.reducer;
