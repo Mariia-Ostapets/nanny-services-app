@@ -21,8 +21,28 @@ import {
 import Loader from '../ui/Loader/Loader';
 import { fetchNannies } from '../../redux/nannies/operations';
 import { fetchFavorites, toggleFavorite } from '../../redux/auth/operations';
+import Button from '../ui/Button/Button';
+import Filters from '../Filters/Filters';
+import { incrementPage, setSortBy } from '../../redux/nannies/slice';
+import { setSortByFavorites } from '../../redux/auth/slice';
+
+const options = [
+  'A to Z',
+  'Z to A',
+  'Less than 10$',
+  'Greater than 10$',
+  'Popular',
+  'Not popular',
+  'Show all',
+];
+
+const selectOptions = options.map(option => ({
+  value: option,
+  label: option,
+}));
 
 export default function NanniesList({ showFavorites = false }) {
+  const [openSelector, setOpenSelector] = useState(null);
   const [isLoadMore, setIsLoadMore] = useState(false);
   const dispatch = useDispatch();
 
@@ -41,13 +61,37 @@ export default function NanniesList({ showFavorites = false }) {
     showFavorites ? selectFavoritesHasMore : selectHasMore
   );
 
+  const handleFilterChange = newFilter => {
+    if (showFavorites) {
+      dispatch(setSortByFavorites(newFilter));
+      dispatch(fetchFavorites({ sortBy: newFilter }));
+    } else {
+      dispatch(setSortBy(newFilter));
+      dispatch(fetchNannies({ sortBy: newFilter }));
+    }
+  };
+
+  const selectorRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = e => {
+      if (selectorRef.current && !selectorRef.current.contains(e.target)) {
+        setOpenSelector(null);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [setOpenSelector]);
+
   useEffect(() => {
     if (showFavorites) {
-      dispatch(fetchFavorites());
+      dispatch(fetchFavorites({ sortBy, page }));
     } else {
       dispatch(fetchNannies({ sortBy }));
     }
-  }, [dispatch, sortBy, showFavorites]);
+  }, [dispatch, sortBy, showFavorites, page]);
 
   const handleToggleFavorite = async nannie => {
     try {
@@ -56,7 +100,7 @@ export default function NanniesList({ showFavorites = false }) {
         dispatch(fetchFavorites());
       }
     } catch (error) {
-      console.error(error);
+      console.error('❌ Failed to toggle favorite:', error);
     }
   };
 
@@ -73,17 +117,54 @@ export default function NanniesList({ showFavorites = false }) {
     prevLengthRef.current = nannies.length;
   }, [nannies]);
 
+  const handleLoadMore = () => {
+    setIsLoadMore(true);
+    if (showFavorites) {
+      dispatch(incrementFavoritesPage({ sortBy, lastKey }));
+      dispatch(fetchFavorites({ sortBy, page: page + 1 }));
+    } else {
+      if (sortBy === 'Show all') {
+        dispatch(fetchNannies({ sortBy, lastKey }));
+      } else {
+        dispatch(incrementPage({ sortBy, lastKey }));
+        dispatch(fetchNannies({ sortBy, page: page + 1 }));
+      }
+    }
+  };
+
+  const isNoResults = nannies.length === 0;
+
   return (
-    <ul className={css.nanniesList}>
-      {nannies.map((item, index) => (
-        <li className={css.nanniesItem} key={item.id} data-nannie-card>
-          <NannnieCard
-            nannie={item}
-            onToggleFavorite={() => handleToggleFavorite(item)}
-            showFavorites={showFavorites}
-          />
-        </li>
-      ))}
-    </ul>
+    <>
+      <h2 className={css.filterTitle}>Filters</h2>
+      <Filters
+        options={selectOptions}
+        value={sortBy}
+        onChange={handleFilterChange}
+        isOpen={openSelector}
+        setOpenSelector={setOpenSelector}
+      />
+      {isNoResults && (
+        <p className={css.noResultsText}>
+          No nannies found matching the filter criteria.
+        </p>
+      )}
+      <ul className={css.nanniesList}>
+        {nannies.map(item => (
+          <li className={css.nanniesItem} key={item.id} data-nannie-card>
+            <NannnieCard
+              nannie={item}
+              onToggleFavorite={() => handleToggleFavorite(item)}
+              showFavorites={showFavorites}
+            />
+          </li>
+        ))}
+      </ul>
+      {hasMore && !loading && (
+        <Button type="button" variant="loadMore" onClick={handleLoadMore}>
+          Load more
+        </Button>
+      )}
+    </>
   );
 }

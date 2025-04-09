@@ -37,11 +37,6 @@ export default function SignUpForm({ closeModal }) {
 
   const dispatch = useDispatch();
 
-  // const onSubmit = data => {
-  //   dispatch(signUp(data));
-  //   closeModal();
-  // };
-
   const onSubmit = async data => {
     try {
       await dispatch(signUp(data)).unwrap();

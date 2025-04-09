@@ -34,16 +34,17 @@ export function applySorting(data, sortBy = 'Show all') {
     'Z to A': 'name',
     'Less then 10$': 'price_per_hour',
     'Greather then 10$': 'price_per_hour',
-    Popular: 'rating',
     'Not popular': 'rating',
+    Popular: 'rating',
   };
 
-  if (sortBy === 'Less then 10$') {
-    return data.filter(item => item.price_per_hour < 10);
+  // Фільтрація даних перед сортуванням
+  if (sortBy === 'Less than 10$') {
+    data = data.filter(item => item.price_per_hour < 10);
   }
 
-  if (sortBy === 'Greather then 10$') {
-    return data.filter(item => item.price_per_hour >= 10);
+  if (sortBy === 'Greater than 10$') {
+    data = data.filter(item => item.price_per_hour >= 10);
   }
 
   const field = sortFieldMap[sortBy];

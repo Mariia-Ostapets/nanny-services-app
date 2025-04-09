@@ -8,7 +8,6 @@ const handlePending = state => {
 };
 
 const handleRejected = (state, action) => {
-  console.error('SIGN IN REJECTED:', action.payload);
   state.loading = false;
   state.error = action.payload;
 };

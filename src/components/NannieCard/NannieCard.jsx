@@ -6,6 +6,7 @@ import Reviews from '../Reviews/Reviews';
 import { useState } from 'react';
 import { selectFavorites, selectIsLoggedIn } from '../../redux/auth/selectors';
 import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 export default function NannnieCard({
   nannie,
@@ -16,8 +17,6 @@ export default function NannnieCard({
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const favorites = useSelector(selectFavorites);
-  const isFavorite = favorites.some(item => item.id === nannie.id);
 
   const handleFavorites = () => {
     if (!isLoggedIn) {
@@ -28,7 +27,7 @@ export default function NannnieCard({
       setIsFadingOut(true);
       setTimeout(() => {
         onToggleFavorite();
-      }, 300);
+      }, 200);
     } else {
       onToggleFavorite();
     }

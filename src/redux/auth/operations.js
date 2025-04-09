@@ -37,6 +37,7 @@ export const signUp = createAsyncThunk(
         name: user.displayName,
         email: user.email,
         favorites: [],
+        token: await user.getIdToken(),
       };
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
@@ -58,6 +59,7 @@ export const signIn = createAsyncThunk(
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       console.log('User logged in:', user);
       const userId = user.uid;
+      const token = await user.getIdToken();
 
       const userRef = ref(db, `users/${userId}`);
       const snapshot = await get(userRef);
@@ -73,7 +75,6 @@ export const signIn = createAsyncThunk(
           favorites: [],
         });
       }
-      console.log('User after login:', { user });
 
       // toast.success('User successfully logged in!');
 
@@ -82,10 +83,9 @@ export const signIn = createAsyncThunk(
         name: user.displayName,
         email: user.email,
         favorites,
+        token,
       };
     } catch (error) {
-      console.error('SIGN IN ERROR:', error.message);
-
       if (error.code === 'auth/invalid-credential') {
         toast.error('Email or password are wrong');
       } else {
@@ -118,6 +118,7 @@ export const getCurrentUser = createAsyncThunk(
       onAuthStateChanged(auth, async user => {
         if (user) {
           const userId = user.uid;
+          const token = await user.getIdToken();
           const userRef = ref(db, `users/${userId}`);
           const snapshot = await get(userRef);
 
@@ -131,6 +132,7 @@ export const getCurrentUser = createAsyncThunk(
             name: user.displayName,
             email: user.email,
             favorites,
+            token,
           });
         } else {
           resolve(null);
@@ -163,7 +165,7 @@ export const toggleFavorite = createAsyncThunk(
   'auth/toggleFavorite',
   async (nannie, { rejectWithValue }) => {
     try {
-      const userId = auth.user.uid;
+      const userId = auth.currentUser?.uid;
       if (!userId) return rejectWithValue('User is not authenticated');
 
       const favoritesRef = ref(db, `users/${userId}/favorites/${nannie.id}`);
@@ -175,9 +177,9 @@ export const toggleFavorite = createAsyncThunk(
         await set(favoritesRef, { ...nannie, id: nannie.id });
       }
 
-      const updatedSnapshot = await get(ref(db, `users/${userId}/ favorites`));
+      const updatedSnapshot = await get(ref(db, `users/${userId}/favorites`));
+      console.log(Object.values(updatedSnapshot.val()));
 
-      console.log('updatedSnapshot:', updatedSnapshot);
       return Object.values(updatedSnapshot.val() || []);
     } catch (error) {
       return rejectWithValue(error.message);

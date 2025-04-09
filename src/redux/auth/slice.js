@@ -15,7 +15,6 @@ const handlePending = state => {
 };
 
 const handleRejected = (state, action) => {
-  console.error('SIGN IN REJECTED:', action.payload);
   state.loading = false;
   state.error = action.payload;
 };
@@ -25,9 +24,9 @@ const INITIAL_STATE = {
     name: null,
     email: null,
     uid: null,
+    token: null,
   },
   favorites: [],
-  // paginatedFavorites: [],
   lastKey: null,
   hasMore: false,
   sortBy: 'Show all',
@@ -95,9 +94,9 @@ const authSlice = createSlice({
       .addCase(fetchFavorites.pending, handlePending)
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         state.loading = false;
-        // state.favorites = action.payload;
 
-        const sorted = applySorting(state.favorites, state.sortBy);
+        // const sorted = applySorting(state.favorites, state.sortBy);
+        const sorted = applySorting(action.payload, state.sortBy);
 
         const { paginated, hasMore, lastKey } = paginate(sorted, state.page);
 

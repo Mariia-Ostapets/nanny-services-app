@@ -6,11 +6,9 @@ import toast from 'react-hot-toast';
 import { toggleFavorite } from '../../redux/auth/operations';
 
 export default function FavoritesBtn({ nannie, onClick }) {
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
   const favorites = useSelector(selectFavorites);
 
-  const isFavorite = favorites.includes(nannie.id);
+  const isFavorite = favorites.some(item => item.id === nannie.id);
 
   return (
     <Button type="button" variant="favorites" onClick={onClick}>

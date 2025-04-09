@@ -13,15 +13,20 @@ import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/slice';
 import { nanniesReducer } from './nannies/slice';
 
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  blacklist: ['sortBy', 'page', 'lastKey', 'hasMore', 'loading', 'error'],
+};
+
 const rootReducer = combineReducers({
-  auth: authReducer,
+  auth: persistReducer(authPersistConfig, authReducer),
   nannies: nanniesReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
