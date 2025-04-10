@@ -1,14 +1,5 @@
 .filterWrapper {
-  padding-top: 152px;
-  padding-bottom: 32px;
-}
-
-.filterTitle {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.29;
-  color: #8a8a89;
-  margin-bottom: 8px;
+  margin-bottom: 32px;
 }
 
 .filterContainer {

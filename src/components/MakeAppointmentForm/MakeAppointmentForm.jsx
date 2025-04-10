@@ -7,10 +7,29 @@ import { toast } from 'react-hot-toast';
 import TimePicker from '../ui/TimePicker/TimePicker';
 
 const schema = yup.object().shape({
+  address: yup.string().required('Address is required'),
+  tel: yup
+    .string()
+    .required('Phone is required')
+    .matches(/^\+380\d{9}$/, 'Phone number must be in format +380XXXXXXXXX'),
+  age: yup
+    .number()
+    .transform((value, originalValue) =>
+      originalValue.trim() === '' ? undefined : value
+    )
+    .required('Age is required')
+    .min(0, 'Age can be from 0 to 14 years old.')
+    .max(14, 'Age can be from 0 to 14 years old.'),
+  time: yup.string().required('Time is required.'),
+  email: yup
+    .string()
+    .required('Email is required')
+    .email('Invalid email format'),
   name: yup
     .string()
     .required('Name is required')
-    .max(10, 'Maximum 10 characters'),
+    .max(20, 'Maximum 20 characters'),
+  comment: yup.string().max(200, 'Maximum 200 characters'),
 });
 
 export default function MakeAppointmentForm({ closeModal, nannie }) {
@@ -63,7 +82,7 @@ export default function MakeAppointmentForm({ closeModal, nannie }) {
           {...register('address')}
         />
         {errors.address && (
-          <p className={css.errorMessageName}>{errors.address.message}</p>
+          <p className={css.errorMessageAddress}>{errors.address.message}</p>
         )}
         <input
           className={`${css.makeAppFormInput} ${css.halfInput}`}
@@ -72,7 +91,7 @@ export default function MakeAppointmentForm({ closeModal, nannie }) {
           {...register('tel')}
         />
         {errors.tel && (
-          <p className={css.errorMessageEmail}>{errors.tel.message}</p>
+          <p className={css.errorMessageTel}>{errors.tel.message}</p>
         )}
         <input
           className={`${css.makeAppFormInput} ${css.halfInput}`}
@@ -81,11 +100,11 @@ export default function MakeAppointmentForm({ closeModal, nannie }) {
           {...register('age')}
         />
         {errors.age && (
-          <p className={css.errorMessageEmail}>{errors.age.message}</p>
+          <p className={css.errorMessageAge}>{errors.age.message}</p>
         )}
         <TimePicker register={register} name="time" setValue={setValue} />
         {errors.time && (
-          <p className={css.errorMessageEmail}>{errors.time.message}</p>
+          <p className={css.errorMessageTime}>{errors.time.message}</p>
         )}
       </div>
       <input
@@ -94,7 +113,7 @@ export default function MakeAppointmentForm({ closeModal, nannie }) {
         placeholder="Email"
         {...register('email')}
       />
-      {errors.time && (
+      {errors.email && (
         <p className={css.errorMessageEmail}>{errors.email.message}</p>
       )}
       <input
@@ -104,17 +123,16 @@ export default function MakeAppointmentForm({ closeModal, nannie }) {
         {...register('name')}
       />
       {errors.name && (
-        <p className={css.errorMessageEmail}>{errors.name.message}</p>
+        <p className={css.errorMessageName}>{errors.name.message}</p>
       )}
       <textarea
         className={`${css.makeAppFormInput} ${css.wholeInput}`}
         type="text"
         placeholder="Comment"
-        rows={4}
         {...register('comment')}
       />
       {errors.comment && (
-        <p className={css.errorMessageEmail}>{errors.comment.message}</p>
+        <p className={css.errorMessageComment}>{errors.comment.message}</p>
       )}
       <Button type="submit" variant="signUpLogInModalSend">
         Send

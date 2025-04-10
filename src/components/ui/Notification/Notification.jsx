@@ -33,6 +33,20 @@ const Notification = () => {
           },
           duration: 3000,
         },
+        info: {
+          style: {
+            color: 'var(--primary-color-white)',
+            backgroundColor: 'var(--accent-color-green)',
+            fontWeight: 'bold',
+            padding: '8px 30px',
+            borderRadius: '10px',
+          },
+          iconTheme: {
+            primary: 'var(--primary-color-white)',
+            secondary: 'var(--accent-color-green)',
+          },
+          duration: 3000,
+        },
       }}
     />
   );

@@ -1,3 +1,7 @@
+.makeAppForm {
+  position: relative;
+}
+
 .formTitle {
   margin-bottom: 20px;
   font-weight: 500;
@@ -67,13 +71,63 @@ textarea {
   background-color: transparent;
   border: 1px solid rgba(17, 16, 28, 0.1);
   border-radius: 12px;
-  padding-left: 18px;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  /* width: 438px;
-  height: 52px; */
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.25;
+  padding: 16px 18px;
   color: var(--primary-color-black);
+  resize: none;
+  height: 116px;
+  overflow: hidden;
+}
+
+textarea::placeholder {
+  color: var(--primary-color-black);
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.errorMessageAddress,
+.errorMessageTel,
+.errorMessageAge,
+.errorMessageTime,
+.errorMessageEmail,
+.errorMessageName,
+.errorMessageComment {
+  color: var(--secondary-color-red);
+  position: absolute;
+  font-size: 12px;
+}
+
+.errorMessageAddress {
+  top: 377px;
+}
+
+.errorMessageTel {
+  top: 377px;
+  left: 240px;
+}
+
+.errorMessageAge {
+  top: 445px;
+  max-width: 232px;
+  overflow: hidden;
+}
+
+.errorMessageTime {
+  top: 445px;
+  left: 240px;
+}
+
+.errorMessageEmail {
+  top: 513px;
+}
+
+.errorMessageName {
+  top: 580px;
+}
+
+.errorMessageComment {
+  top: 710px;
 }

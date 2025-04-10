@@ -9,13 +9,13 @@ export default function TimePicker({ register, name, setValue }) {
   const timeOptions = [];
 
   for (let hour = 0; hour < 24; hour++) {
-    timeOptions.push(`${String(hour).padStart(2, '0')}:00`);
-    timeOptions.push(`${String(hour).padStart(2, '0')}:30`);
+    timeOptions.push(`${String(hour).padStart(2, '0')} : 00`);
+    timeOptions.push(`${String(hour).padStart(2, '0')} : 30`);
   }
 
   const handleSelect = time => {
-    setSelectedTime(time);
-    setValue(name, time);
+    setSelectedTime(time.replace(/ : /g, ':'));
+    setValue(name, time.replace(/ : /g, ':'));
     setIsOpen(false);
   };
 
@@ -29,10 +29,14 @@ export default function TimePicker({ register, name, setValue }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const toggleDropdown = () => {
+    setIsOpen(prevState => !prevState);
+  };
+
   return (
     <div className={css.timePickerWrapper} ref={pickerRef}>
       <input
-        className={`${css.makeAppFormInput} ${css.halfInput}`}
+        className={css.timePickerInput}
         type="text"
         placeholder="00:00"
         onFocus={() => setIsOpen(true)}
@@ -40,7 +44,12 @@ export default function TimePicker({ register, name, setValue }) {
         readOnly
         {...register(name)}
       />
-      <svg className={css.clockIcon} width="20" height="20">
+      <svg
+        className={css.clockIcon}
+        width="20"
+        height="20"
+        onClick={toggleDropdown}
+      >
         <use href={'/sprite.svg#icon-clock'} />
       </svg>
       {isOpen && (
@@ -51,7 +60,7 @@ export default function TimePicker({ register, name, setValue }) {
               <li
                 key={time}
                 className={`${css.timeOption} ${
-                  selectedTime === time ? css.selected : ''
+                  selectedTime === time.replace(/ : /g, ':') ? css.selected : ''
                 }`}
                 onClick={() => handleSelect(time)}
               >
