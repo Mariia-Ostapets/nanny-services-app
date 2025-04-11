@@ -1,5 +1,7 @@
 .loader {
   margin-top: 32px;
-  /* margin-left: auto;
-  margin-right: auto; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
 }

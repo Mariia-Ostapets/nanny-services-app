@@ -177,10 +177,17 @@ export const toggleFavorite = createAsyncThunk(
         await set(favoritesRef, { ...nannie, id: nannie.id });
       }
 
-      const updatedSnapshot = await get(ref(db, `users/${userId}/favorites`));
-      console.log(Object.values(updatedSnapshot.val()));
+      // const updatedSnapshot = await get(ref(db, `users/${userId}/favorites`));
+      // console.log(Object.values(updatedSnapshot.val()));
 
-      return Object.values(updatedSnapshot.val() || []);
+      // return Object.values(updatedSnapshot.val() || []);
+
+      const updatedSnapshot = await get(ref(db, `users/${userId}/favorites`));
+      const updatedFavorites = updatedSnapshot.exists()
+        ? Object.values(updatedSnapshot.val())
+        : [];
+      console.log(updatedFavorites);
+      return updatedFavorites;
     } catch (error) {
       return rejectWithValue(error.message);
     }

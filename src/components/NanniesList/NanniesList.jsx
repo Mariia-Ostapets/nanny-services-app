@@ -8,7 +8,7 @@ import {
   selectPage,
   selectSortBy,
 } from '../../redux/nannies/selectors';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import NannnieCard from '../NannieCard/NannieCard';
 import {
   selectFavorites,
@@ -23,8 +23,13 @@ import { fetchNannies } from '../../redux/nannies/operations';
 import { fetchFavorites, toggleFavorite } from '../../redux/auth/operations';
 import Button from '../ui/Button/Button';
 import Filters from '../Filters/Filters';
+import Notification from '../ui/Notification/Notification';
 import { incrementPage, setSortBy } from '../../redux/nannies/slice';
-import { setSortByFavorites } from '../../redux/auth/slice';
+import {
+  incrementFavoritesPage,
+  setSortByFavorites,
+} from '../../redux/auth/slice';
+import { toast } from 'react-hot-toast';
 
 const options = [
   'A to Z',
@@ -132,7 +137,26 @@ export default function NanniesList({ showFavorites = false }) {
     }
   };
 
+  // useEffect(() => {
+  //   if (!hasMore) {
+  //     toast.success('No more nannies to load!');
+  //   }
+  // }, [hasMore]);
+
   const isNoResults = nannies.length === 0;
+
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (!hasMore && !isNoResults) {
+      toast.success('No more nannies to load!');
+    }
+  }, [hasMore]);
 
   return (
     <>
@@ -150,6 +174,7 @@ export default function NanniesList({ showFavorites = false }) {
           filter criteria.
         </p>
       )}
+      {loading && <Loader />}
       <ul className={css.nanniesList}>
         {nannies.map(item => (
           <li className={css.nanniesItem} key={item.id} data-nannie-card>
@@ -161,11 +186,13 @@ export default function NanniesList({ showFavorites = false }) {
           </li>
         ))}
       </ul>
+      {loading && !isNoResults && <Loader />}
       {hasMore && !loading && (
         <Button type="button" variant="loadMore" onClick={handleLoadMore}>
           Load more
         </Button>
       )}
+      <Notification />
     </>
   );
 }
