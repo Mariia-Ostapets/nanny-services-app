@@ -8,7 +8,7 @@ import {
   selectPage,
   selectSortBy,
 } from '../../redux/nannies/selectors';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import NannnieCard from '../NannieCard/NannieCard';
 import {
   selectFavorites,
@@ -81,7 +81,7 @@ export default function NanniesList({ showFavorites = false }) {
         dispatch(fetchFavorites());
       }
     } catch (error) {
-      console.error('❌ Failed to toggle favorite:', error);
+      console.error(error);
     }
   };
 
@@ -136,12 +136,6 @@ export default function NanniesList({ showFavorites = false }) {
       }
     }
   };
-
-  // useEffect(() => {
-  //   if (!hasMore) {
-  //     toast.success('No more nannies to load!');
-  //   }
-  // }, [hasMore]);
 
   const isNoResults = nannies.length === 0;
 

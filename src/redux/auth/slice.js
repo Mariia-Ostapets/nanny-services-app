@@ -27,6 +27,7 @@ const INITIAL_STATE = {
     token: null,
   },
   favorites: [],
+  favoriteIds: [],
   lastKey: null,
   hasMore: false,
   sortBy: 'Show all',
@@ -70,6 +71,7 @@ const authSlice = createSlice({
         state.user = action.payload;
         state.isLoggedIn = true;
         state.favorites = action.payload.favorites;
+        state.favoriteIds = action.payload.favorites.map(item => item.id);
       })
       .addCase(signIn.rejected, handleRejected)
       .addCase(getCurrentUser.pending, state => {
@@ -81,10 +83,12 @@ const authSlice = createSlice({
           state.user = action.payload;
           state.isLoggedIn = true;
           state.favorites = action.payload.favorites;
+          state.favoriteIds = action.payload.favorites.map(item => item.id);
         } else {
           state.user = { uid: null, name: '', email: '' };
           state.isLoggedIn = false;
           state.favorites = [];
+          state.favoriteIds = [];
         }
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
@@ -95,9 +99,7 @@ const authSlice = createSlice({
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         state.loading = false;
 
-        // const sorted = applySorting(state.favorites, state.sortBy);
         const sorted = applySorting(action.payload, state.sortBy);
-
         const { paginated, hasMore, lastKey } = paginate(sorted, state.page);
 
         if (state.page === 1) {
@@ -116,6 +118,7 @@ const authSlice = createSlice({
       .addCase(toggleFavorite.fulfilled, (state, action) => {
         state.loading = false;
         state.favorites = action.payload;
+        state.favoriteIds = action.payload.map(item => item.id);
       })
       .addCase(toggleFavorite.rejected, handleRejected)
       .addCase(logOut.pending, handlePending)

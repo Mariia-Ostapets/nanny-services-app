@@ -4,7 +4,7 @@ import css from './NannieCard.module.css';
 import { calculateAge, getCharactersToString } from '../../utils/index';
 import Reviews from '../Reviews/Reviews';
 import { useState } from 'react';
-import { selectFavorites, selectIsLoggedIn } from '../../redux/auth/selectors';
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
@@ -20,7 +20,9 @@ export default function NannnieCard({
 
   const handleFavorites = () => {
     if (!isLoggedIn) {
-      toast.error('Functionality is available only to authorized users');
+      toast.error(
+        'Please register to be able to add a nanny to your favorites.'
+      );
       return;
     }
     if (showFavorites) {

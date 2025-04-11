@@ -1,12 +1,5 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import css from './Filters.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSortBy } from '../../redux/nannies/slice';
-import { fetchNannies } from '../../redux/nannies/operations';
-import { setSortByFavorites } from '../../redux/auth/slice';
-import { fetchFavorites } from '../../redux/auth/operations';
-import { selectFavoritesSortBy } from '../../redux/auth/selectors';
-import { selectSortBy } from '../../redux/nannies/selectors';
 
 export default function Filters({
   value,

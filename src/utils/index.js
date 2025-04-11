@@ -32,13 +32,12 @@ export function applySorting(data, sortBy = 'Show all') {
   const sortFieldMap = {
     'A to Z': 'name',
     'Z to A': 'name',
-    'Less then 10$': 'price_per_hour',
-    'Greather then 10$': 'price_per_hour',
+    'Less than 10$': 'price_per_hour',
+    'Greater than 10$': 'price_per_hour',
     'Not popular': 'rating',
     Popular: 'rating',
   };
 
-  // Фільтрація даних перед сортуванням
   if (sortBy === 'Less than 10$') {
     data = data.filter(item => item.price_per_hour < 10);
   }

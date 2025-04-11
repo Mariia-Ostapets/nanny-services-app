@@ -10,7 +10,6 @@ import {
 import { get, ref, set, update, remove } from 'firebase/database';
 import { toast } from 'react-hot-toast';
 
-// Реєстрація користувача
 export const signUp = createAsyncThunk(
   'auth/signUp',
   async ({ email, password, name }, { rejectWithValue }) => {
@@ -51,13 +50,11 @@ export const signUp = createAsyncThunk(
   }
 );
 
-// Логінізація користувача
 export const signIn = createAsyncThunk(
   'auth/signIn',
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
-      console.log('User logged in:', user);
       const userId = user.uid;
       const token = await user.getIdToken();
 
@@ -75,8 +72,6 @@ export const signIn = createAsyncThunk(
           favorites: [],
         });
       }
-
-      // toast.success('User successfully logged in!');
 
       return {
         uid: userId,
@@ -97,7 +92,6 @@ export const signIn = createAsyncThunk(
   }
 );
 
-// Вихід із системи
 export const logOut = createAsyncThunk(
   'auth/logOut',
   async (_, { rejectWithValue }) => {
@@ -110,7 +104,6 @@ export const logOut = createAsyncThunk(
   }
 );
 
-// Отримання поточного користувача
 export const getCurrentUser = createAsyncThunk(
   'auth/getCurrentUser',
   async (_, { rejectWithValue }) => {
@@ -177,16 +170,11 @@ export const toggleFavorite = createAsyncThunk(
         await set(favoritesRef, { ...nannie, id: nannie.id });
       }
 
-      // const updatedSnapshot = await get(ref(db, `users/${userId}/favorites`));
-      // console.log(Object.values(updatedSnapshot.val()));
-
-      // return Object.values(updatedSnapshot.val() || []);
-
       const updatedSnapshot = await get(ref(db, `users/${userId}/favorites`));
       const updatedFavorites = updatedSnapshot.exists()
         ? Object.values(updatedSnapshot.val())
         : [];
-      console.log(updatedFavorites);
+
       return updatedFavorites;
     } catch (error) {
       return rejectWithValue(error.message);
