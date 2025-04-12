@@ -1,16 +1,23 @@
-# 🧸 Nanny Services App
+# [icon-heart](./public/heart-blue.svg) Nanny Services App
 
-[![Live Demo](./public/heart-blue.svg)](https://nanny-services-app-indol.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit-brightgreen)](https://nanny-services-app-indol.vercel.app/)
 
 A web application for a company offering nanny services. Browse nannies, filter
 them based on your needs, and save your favorites!
 
 ## 🖼️ Preview
 
-<p align="center">
-  <img src="./public/home.png" alt="Homepage Preview" width="400">
-  <img src="./public/nannies.png" alt="Nannies Page Preview" width="400">
-</p>
+<table>
+  <tr>
+    <td valign="top">
+      <img src="./public/home.png" alt="Homepage Preview" width="200"><br>
+      <img src="./public/filters.png" alt="Favorites Page With Open Filters Preview" width="200">
+    </td>
+    <td valign="top">
+      <img src="./public/nannies.png" alt="Nannies Page Preview" height="400">
+    </td>
+  </tr>
+</table>
 
 ## 🚀 Features
 
