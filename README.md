@@ -1,4 +1,4 @@
-# [icon-heart](./public/heart-blue.svg) Nanny Services App
+# ![icon-heart](./public/heart-blue.svg) Nanny Services App
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit-brightgreen)](https://nanny-services-app-indol.vercel.app/)
 
@@ -10,11 +10,11 @@ them based on your needs, and save your favorites!
 <table>
   <tr>
     <td valign="top">
-      <img src="./public/home.png" alt="Homepage Preview" width="200"><br>
-      <img src="./public/filters.png" alt="Favorites Page With Open Filters Preview" width="200">
+      <img src="./public/home.png" alt="Homepage Preview" width="400" height="200"><br>
+      <img src="./public/filters.png" alt="Favorites Page With Open Filters Preview" width="400" height="200">
     </td>
     <td valign="top">
-      <img src="./public/nannies.png" alt="Nannies Page Preview" height="400">
+      <img src="./public/nannies.png" alt="Nannies Page Preview" width="400" height="400">
     </td>
   </tr>
 </table>
