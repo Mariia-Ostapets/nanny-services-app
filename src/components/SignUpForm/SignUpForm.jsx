@@ -40,10 +40,9 @@ export default function SignUpForm({ closeModal }) {
   const onSubmit = async data => {
     try {
       await dispatch(signUp(data)).unwrap();
-      // toast.success('User successfully registered!');
       closeModal();
     } catch (error) {
-      console.error('SIGN UP ERROR:', error);
+      console.error(error);
     }
   };
 

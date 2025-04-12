@@ -10,19 +10,21 @@ export default function Filters({
 }) {
   const selectorRef = useRef(null);
 
-  const handleSelect = option => {
+  const handleSelect = (option, e) => {
+    e.stopPropagation();
     onChange(option.value);
     setOpenSelector(false);
   };
 
-  const handleToggle = () => {
+  const handleToggle = e => {
+    e.stopPropagation();
     setOpenSelector(prev => !prev);
   };
 
   useEffect(() => {
     const handleClickOutside = e => {
       if (selectorRef.current && !selectorRef.current.contains(e.target)) {
-        setOpenSelector(null);
+        setOpenSelector(false);
       }
     };
     document.addEventListener('click', handleClickOutside);
@@ -44,7 +46,7 @@ export default function Filters({
               <li
                 className={css.filterItem}
                 key={option.value}
-                onClick={() => handleSelect(option)}
+                onClick={e => handleSelect(option, e)}
               >
                 {option.label}
               </li>

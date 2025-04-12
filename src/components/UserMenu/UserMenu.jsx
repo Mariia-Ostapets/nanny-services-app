@@ -13,8 +13,6 @@ export default function UserMenu() {
     dispatch(logOut());
   };
 
-  console.log('User from Redux:', user);
-
   return (
     <div className={css.userMenuContainer}>
       <div className={css.userMenuAvatarAndNameContainer}>

@@ -3,14 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from '../ui/Layout/Layout.jsx';
 import PrivateRoute from '../ui/PrivateRoute.jsx';
 import Notification from '../ui/Notification/Notification.jsx';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectIsRefreshing,
-  selectUserIsLoading,
-} from '../../redux/auth/selectors.js';
-import { selectLoading } from '../../redux/nannies/selectors.js';
+import { useDispatch } from 'react-redux';
 import { getCurrentUser } from '../../redux/auth/operations.js';
-import Loader from '../ui/Loader/Loader.jsx';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const NanniesPage = lazy(() =>

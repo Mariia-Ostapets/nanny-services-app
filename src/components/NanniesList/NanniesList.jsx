@@ -47,7 +47,7 @@ const selectOptions = options.map(option => ({
 }));
 
 export default function NanniesList({ showFavorites = false }) {
-  const [openSelector, setOpenSelector] = useState(null);
+  const [openSelector, setOpenSelector] = useState(false);
   const [isLoadMore, setIsLoadMore] = useState(false);
   const dispatch = useDispatch();
 
@@ -94,20 +94,6 @@ export default function NanniesList({ showFavorites = false }) {
       dispatch(fetchNannies({ sortBy: newFilter }));
     }
   };
-
-  const selectorRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = e => {
-      if (selectorRef.current && !selectorRef.current.contains(e.target)) {
-        setOpenSelector(null);
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [setOpenSelector]);
 
   const prevLengthRef = useRef(0);
 

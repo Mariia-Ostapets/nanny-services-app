@@ -34,20 +34,13 @@ export default function SignInForm({ closeModal }) {
 
   const dispatch = useDispatch();
 
-  // const onSubmit = data => {
-  //   console.log('Dispatching signIn with:', data);
-  //   dispatch(signIn(data));
-  //   closeModal();
-  // };
-
   const onSubmit = async data => {
-    console.log('Dispatching signIn with:', data);
     try {
       await dispatch(signIn(data)).unwrap();
       toast.success('User successfully logged in!');
       closeModal();
     } catch (error) {
-      console.error('SIGN IN ERROR:', error);
+      console.error(error);
     }
   };
 

@@ -37,7 +37,6 @@ export default function ModalForm({
       style={ModalFormStyles}
       bodyOpenClassName={css.modalOpen}
       contentLabel="Example Modal"
-      // contentClassName="modal-scroll"
     >
       <Button type={'button'} variant="close-modal" onClick={closeModal}>
         <svg width={32} height={32}>

@@ -11,7 +11,7 @@ import {
 
 export const fetchNannies = createAsyncThunk(
   'nannies/fetchNannies',
-  async ({ sortBy = 'Show all', lastKey = null }, { rejectWithValue }) => {
+  async ({ sortBy = 'A to Z', lastKey = null }, { rejectWithValue }) => {
     try {
       const limit = 3;
 
