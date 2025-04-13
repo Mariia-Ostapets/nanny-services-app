@@ -17,32 +17,37 @@ export default function Header({ type }) {
   const closeModal = () => setModalContent(null);
 
   return (
-    <header
-      className={clsx(
-        css.header,
-        type && css.headerHome,
-        !type && css.headerNannies
-      )}
-    >
-      <Link className={css.logo} to="/">
-        Nanny.Services
-      </Link>
-      <div
-        className={clsx(
-          type && css.headerNavAndMenuWrapper,
-          !type && css.headerNavAndMenuWrapperNannies
-        )}
+    <>
+      <header
+        className={clsx(type && css.headerHome, !type && css.headerNannies)}
       >
-        <Navigation type={type} isNanniesHeader={!type} />
-        {isLoggedIn ? (
-          <UserMenu closeModal={closeModal} />
-        ) : (
-          <AuthMenu openModal={openModal} closeModal={closeModal} />
-        )}
-      </div>
-      <ModalForm modalIsOpen={!!modalContent} closeModal={closeModal}>
-        {modalContent}
-      </ModalForm>
-    </header>
+        <div
+          className={clsx(
+            type && css.headerContainerHome,
+            !type && css.headerContainerNannies
+          )}
+        >
+          <Link className={css.logo} to="/">
+            Nanny.Services
+          </Link>
+          <div
+            className={clsx(
+              type && css.headerNavAndMenuWrapper,
+              !type && css.headerNavAndMenuWrapperNannies
+            )}
+          >
+            <Navigation type={type} isNanniesHeader={!type} />
+            {isLoggedIn ? (
+              <UserMenu closeModal={closeModal} />
+            ) : (
+              <AuthMenu openModal={openModal} closeModal={closeModal} />
+            )}
+          </div>
+          <ModalForm modalIsOpen={!!modalContent} closeModal={closeModal}>
+            {modalContent}
+          </ModalForm>
+        </div>
+      </header>
+    </>
   );
 }

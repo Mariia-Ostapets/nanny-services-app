@@ -10,26 +10,30 @@ export default function Layout() {
   const isHomePage = pathname === '/';
 
   return (
-    <div
-      className={clsx(
-        css.container,
-        css.containerHome,
-        !isHomePage && css.containerNannies
-      )}
-    >
-      <div
-        className={clsx(
-          css.layoutWrapperHome,
-          !isHomePage && css.layoutWrapperNannies
-        )}
-      >
-        <Header type={isHomePage} />
-        <main>
-          <Suspense fallback={<Loader />}>
-            <Outlet />
-          </Suspense>
-        </main>
-      </div>
-    </div>
+    <>
+      <Header type={isHomePage} />
+      <main>
+        <div className={clsx(!isHomePage && css.layoutBgr)}>
+          <div
+            className={clsx(
+              css.container,
+              css.containerHome,
+              !isHomePage && css.containerNannies
+            )}
+          >
+            <div
+              className={clsx(
+                css.layoutWrapperHome,
+                !isHomePage && css.layoutWrapperNannies
+              )}
+            >
+              <Suspense fallback={<Loader />}>
+                <Outlet />
+              </Suspense>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
   );
 }

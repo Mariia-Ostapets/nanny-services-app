@@ -1,3 +1,7 @@
+.layoutBgr {
+  background-color: var(--primary-color-gray-dark);
+}
+
 .container {
   max-width: 1440px;
   margin: 0 auto;
@@ -9,7 +13,6 @@
 
 .containerNannies {
   padding: 0 128px;
-  background-color: var(--primary-color-gray-dark);
 }
 
 .layoutWrapperHome {
@@ -21,4 +24,8 @@
 
 .layoutWrapperNannies {
   background-color: var(--primary-color-gray-dark);
+}
+
+.headerWrapper {
+  background-color: var(--primary-color-blue);
 }

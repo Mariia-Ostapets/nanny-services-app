@@ -11,7 +11,7 @@ const schema = yup.object().shape({
   tel: yup
     .string()
     .required('Phone is required')
-    .matches(/^\+380\d{9}$/, 'Phone number must be in format +380XXXXXXXXX'),
+    .matches(/^\+380\d{9}$/, 'Phone must be in format +380XXXXXXXXX'),
   age: yup
     .number()
     .transform((value, originalValue) =>
@@ -34,8 +34,6 @@ const schema = yup.object().shape({
 
 export default function MakeAppointmentForm({ closeModal, nannie }) {
   const onSubmit = data => {
-    console.log(data);
-    console.log('send');
     toast.success(
       'The appointment with babysitter has been successfully scheduled! The manager will contact you shortly to clarify the details.'
     );
